@@ -7,8 +7,6 @@ public partial class MainWindow
 	
 	private global::Gtk.Alignment GtkAlignment;
 	
-	private global::Gtk.Button button1;
-	
 	private global::Gtk.Label GtkLabel1;
 
 	protected virtual void Build ()
@@ -27,16 +25,6 @@ public partial class MainWindow
 		this.GtkAlignment = new global::Gtk.Alignment (0F, 0F, 1F, 1F);
 		this.GtkAlignment.Name = "GtkAlignment";
 		this.GtkAlignment.LeftPadding = ((uint)(12));
-		// Container child GtkAlignment.Gtk.Container+ContainerChild
-		this.button1 = new global::Gtk.Button ();
-		this.button1.WidthRequest = 20;
-		this.button1.HeightRequest = 40;
-		this.button1.CanFocus = true;
-		this.button1.Name = "button1";
-		this.button1.UseUnderline = true;
-		this.button1.BorderWidth = ((uint)(50));
-		this.button1.Label = global::Mono.Unix.Catalog.GetString ("GtkButton");
-		this.GtkAlignment.Add (this.button1);
 		this.frame1.Add (this.GtkAlignment);
 		this.GtkLabel1 = new global::Gtk.Label ();
 		this.GtkLabel1.Name = "GtkLabel1";

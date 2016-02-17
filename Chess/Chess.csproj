@@ -66,6 +66,13 @@
     <Compile Include="figures\King.cs" />
     <Compile Include="figures\Figure.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="figures\Bishop.cs" />
+    <Compile Include="figures\Knight.cs" />
+    <Compile Include="figures\Queen.cs" />
+    <Compile Include="figures\Rock.cs" />
+    <Compile Include="Pawn.cs" />
+    <Compile Include="figures\Empty.cs" />
+    <Compile Include="coord.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
