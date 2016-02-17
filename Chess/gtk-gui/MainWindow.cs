@@ -3,12 +3,6 @@
 
 public partial class MainWindow
 {
-	private global::Gtk.Frame frame1;
-	
-	private global::Gtk.Alignment GtkAlignment;
-	
-	private global::Gtk.Label GtkLabel1;
-
 	protected virtual void Build ()
 	{
 		global::Stetic.Gui.Initialize (this);
@@ -16,27 +10,11 @@ public partial class MainWindow
 		this.Name = "MainWindow";
 		this.Title = global::Mono.Unix.Catalog.GetString ("Chess");
 		this.WindowPosition = ((global::Gtk.WindowPosition)(4));
-		// Container child MainWindow.Gtk.Container+ContainerChild
-		this.frame1 = new global::Gtk.Frame ();
-		this.frame1.Name = "frame1";
-		this.frame1.ShadowType = ((global::Gtk.ShadowType)(0));
-		this.frame1.BorderWidth = ((uint)(20));
-		// Container child frame1.Gtk.Container+ContainerChild
-		this.GtkAlignment = new global::Gtk.Alignment (0F, 0F, 1F, 1F);
-		this.GtkAlignment.Name = "GtkAlignment";
-		this.GtkAlignment.LeftPadding = ((uint)(12));
-		this.frame1.Add (this.GtkAlignment);
-		this.GtkLabel1 = new global::Gtk.Label ();
-		this.GtkLabel1.Name = "GtkLabel1";
-		this.GtkLabel1.LabelProp = global::Mono.Unix.Catalog.GetString ("<b>GtkFrame</b>");
-		this.GtkLabel1.UseMarkup = true;
-		this.frame1.LabelWidget = this.GtkLabel1;
-		this.Add (this.frame1);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
-		this.DefaultWidth = 1037;
-		this.DefaultHeight = 660;
+		this.DefaultWidth = 536;
+		this.DefaultHeight = 419;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 	}

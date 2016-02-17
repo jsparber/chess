@@ -95,14 +95,15 @@ namespace Chess
       return this.board;
     }
     //prints the board to the log used for debuging
-    public void printBoard () {
+    public string printBoard () {
+      string output = "";
       for (int x = 0; x < 8; x++) {
         for (int y = 0; y < 8; y++) {
-          Console.Write (this.board [x, y].GetType ().Name + " ");
+          output += (this.board [x, y].GetType ().Name + " ");
         }
-        Console.WriteLine ("");
+        output += "\n";
       }
-      Console.Clear ();
+      return output;
     }
    
     //returns true if the move is possible
@@ -128,6 +129,14 @@ namespace Chess
       else {
         return false;
       }
+    }
+
+    //hard coded values
+    public coord getSize() {
+      coord c = new coord ();
+      c.x = 8;
+      c.y = 8;
+      return c;
     }
 
 	}
