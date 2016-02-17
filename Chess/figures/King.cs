@@ -2,7 +2,7 @@
 
 namespace Chess
 {
-  public class king : figure
+  public class king : Figure
   {
     public king ()
     {

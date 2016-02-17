@@ -61,10 +61,11 @@
     <Compile Include="MainWindow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="board.cs" />
     <Compile Include="gtk-gui\MainWindow.cs" />
-    <Compile Include="figure.cs" />
-    <Compile Include="king.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="figures\King.cs" />
+    <Compile Include="figures\Figure.cs" />
+    <Compile Include="Game.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -78,4 +79,7 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <ItemGroup>
+    <Folder Include="figures\" />
+  </ItemGroup>
 </Project>

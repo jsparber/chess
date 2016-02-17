@@ -7,10 +7,13 @@ namespace Chess
 	{
 		public static void Main (string[] args)
 		{
-			Application.Init ();
+      Game g = new Game ();
+      g.printBoard ();
+      Application.Init ();
 			MainWindow win = new MainWindow ();
 			win.Show ();
 			Application.Run ();
+     
 		}
 	}
 }
