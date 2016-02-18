@@ -73,6 +73,7 @@
     <Compile Include="Pawn.cs" />
     <Compile Include="figures\Empty.cs" />
     <Compile Include="coord.cs" />
+    <Compile Include="Board.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

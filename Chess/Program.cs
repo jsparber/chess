@@ -12,23 +12,33 @@ namespace Chess
 			MainWindow win = new MainWindow ();
       win.Show ();
 
-      Label output = new Label();
-      //coord c = g.getSize ();
-      output.Text = g.printBoard ();
-      win.Add(output);
-      win.ShowAll();
-      coord start = new coord ();
-      coord end = new coord ();
-
-      start.x = 1;
-      start.y = 1;
-      end.x = 2;
-      end.y = 4;
-      Console.WriteLine (
-        g.move ("white", start, end));
-      output.Text = g.printBoard ();
+      g.move (new coord(0,0), new coord(2,3));
+      win.Add (createBoard (g));
 			Application.Run ();
      
 		}
-	}
+    private static Table createBoard(Game g) {
+      Table chessBoard = new Table ((uint)g.getSize().x, (uint)g.getSize().y, true);
+
+      for (uint i = 0; i < g.getSize().y; i++) {
+        for (uint j = 0; j < g.getSize().x; j++) {
+          string title = g.getFieldName (new coord ((int)i, (int)j));
+          title = (title == "Empty") ? "" : title;
+          EventBox field = new EventBox ();
+          field.Show ();
+          field.Add(new Label(title));
+          field.ButtonPressEvent += onFieldClick;
+          chessBoard.Attach (field, j, j + 1, i, i + 1);
+        }
+      }
+      chessBoard.ShowAll ();
+      return chessBoard;
+    }
+    static void onFieldClick( object obj, ButtonPressEventArgs args) {
+      EventBox mybutton = (EventBox) obj;
+      object o = mybutton.Parent;
+                        //Console.WriteLine("Hello again - {0} was pressed", (string) mybutton.Label);
+                        // Have to figure out, how to recieve button name
+  }
+  }
 }
