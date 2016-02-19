@@ -44,8 +44,8 @@ namespace Chess
 
       //fill up the array with the right figures
       int c = 0;
-      for (int x = 0; x < lineLength; x++) {
-        for (int y = 0; y < noLine; y++) {
+      for (int y = 0; y < noLine; y++) {
+        for (int x = 0; x < lineLength; x++) {
           if (layout [c] == '\n')
             c++;
           this.fields [x, y] = figureLookup (layout [c]);
@@ -106,8 +106,8 @@ namespace Chess
     //retruns false if the move is not possible
     private bool checkMove (string color, coord start, coord end)
     {
-      if ((this.fields [start.x, start.y].GetType ().Name == "Empty") &&
-          (this.fields [start.x, start.y].getColor != color) &&
+      if ((this.fields [start.x, start.y].GetType ().Name == "Empty") ||
+          (this.fields [start.x, start.y].getColor != color) ||
           (this.fields [end.x, end.y].getColor == color))
         return false; 
 

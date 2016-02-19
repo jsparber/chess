@@ -8,7 +8,7 @@ namespace Chess
  
     private Board board;
     private Player[] player;
-    private string currentPlayer { get; }
+    private string currentPlayer { get; set; }
 
  
     //constructor
@@ -22,7 +22,13 @@ namespace Chess
 		}
     
     public string getFieldName(coord c) {
-      return (this.board.fields [c.x, c.y].GetType ().Name);
+      return getField (c).GetType ().Name;
+    }
+    public string getFieldColor(coord c) {
+      return getField(c).getColor;
+    }
+    public Figure getField(coord c) {
+      return this.board.fields [c.x, c.y];
     }
  
     //prints the board to the log used for debuging
@@ -36,16 +42,24 @@ namespace Chess
       }
       return output;
     }
+
+    public Board getBoard() {
+      return this.board;
+    }
+
     public coord getSize() {
       return this.board.size;
     }
 
     public bool move(coord start, coord end) {
-      return this.board.Move (this.currentPlayer, start, end);
+      bool res = this.board.Move (this.currentPlayer, start, end);
+      if (res)
+        tooglePlayer ();
+      return res;
     }
 
-    private string tooglePlayer() {
-      return (this.currentPlayer == "white") ? "black" : "white";
+    private void tooglePlayer() {
+      this.currentPlayer = (this.currentPlayer == "white") ? "black" : "white";
     }
 	}
 }
