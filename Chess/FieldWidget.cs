@@ -14,8 +14,13 @@ namespace Chess
     {
       Gdk.Color col = new Gdk.Color();
       Gdk.Color.Parse(colorBg, ref col);
+      string imgName;
       if (figure != "") {
-        string imgName = color.ToLower () [0].ToString () + figure.ToUpper () [0].ToString ();
+        if (figure.ToLower() != "knight") {
+          imgName = color.ToLower () [0].ToString () + figure.ToUpper () [0].ToString ();
+        } else {
+          imgName = color.ToLower () [0].ToString () + "N";
+        }
         Image img = loadSvg(imgName, new coord(100, 100));
         this.Add(img);
       }
