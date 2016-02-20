@@ -68,6 +68,7 @@
     <Compile Include="FieldWidget.cs" />
     <Compile Include="gtk-gui\Chess.FieldWidget.cs" />
     <Compile Include="GridWidget.cs" />
+    <Compile Include="cairoGraphic.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

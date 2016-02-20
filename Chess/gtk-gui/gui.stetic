@@ -9,6 +9,7 @@
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="536 419">
+    <action-group name="Default" />
     <property name="MemberName" />
     <property name="Title" translatable="yes">Chess</property>
     <property name="WindowPosition">CenterOnParent</property>

@@ -10,7 +10,7 @@ namespace Chess
       Game g = new Game ();
       Application.Init ();
       MainWindow win = new MainWindow ();
-      //win.Resize (800, 800);
+      win.Resize (800, 800);
       //win.Decorated = false;
       win.Show ();
       //g.move (new coord(0,0), new coord(2,3));
@@ -61,6 +61,10 @@ namespace Chess
       if (!parent.clicked) {
         parent.clickedPosition = new coord (field.position.x, field.position.y);
         parent.clicked = true;
+        Image circle = field.loadCircle (new coord (100, 100));
+        Fixed f = (Fixed)(field.Child);
+        f.Add (circle);
+        f.ShowAll ();
       } else {
         g.move (new coord (parent.clickedPosition.x, parent.clickedPosition.y), new coord (field.position.x, field.position.y));
         parent.clicked = false;
