@@ -65,10 +65,12 @@
     <Compile Include="figures\Empty.cs" />
     <Compile Include="coord.cs" />
     <Compile Include="Board.cs" />
-    <Compile Include="FieldWidget.cs" />
-    <Compile Include="gtk-gui\Chess.FieldWidget.cs" />
     <Compile Include="GridWidget.cs" />
-    <Compile Include="cairoGraphic.cs" />
+    <Compile Include="Graphics.cs" />
+    <Compile Include="gtk-gui\Chess.Graphics.cs" />
+    <Compile Include="TileWidget.cs" />
+    <Compile Include="gtk-gui\Chess.TileWidget.cs" />
+    <Compile Include="SidebarWidget.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

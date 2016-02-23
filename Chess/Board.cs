@@ -22,7 +22,7 @@ namespace Chess
 
     public coord size { get; set; }
 
-    private List<Figure> removedFigures;
+    public List<Figure> removedFigures { get; set; }
 
     public Board ()
     {
@@ -113,6 +113,7 @@ namespace Chess
 
       return this.fields [start.x, start.y].move (this.fields, start, end);
     }
+
   }
 }
 

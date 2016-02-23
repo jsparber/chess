@@ -51,15 +51,23 @@ namespace Chess
       return this.board.size;
     }
 
-    public bool move(coord start, coord end) {
+    public bool Move(coord start, coord end) {
       bool res = this.board.Move (this.currentPlayer, start, end);
       if (res)
         tooglePlayer ();
       return res;
     }
 
+    public bool Move(coord start) {
+      return (this.getFieldName(start) != "Empty");
+    }
+
     private void tooglePlayer() {
       this.currentPlayer = (this.currentPlayer == "white") ? "black" : "white";
+    }
+
+    public List<Figure> getRemovedFigures() {
+      return this.board.removedFigures;
     }
 	}
 }
