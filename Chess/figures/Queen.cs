@@ -4,9 +4,8 @@ namespace Chess
 {
   public class Queen : Figure
 	{
-    public Queen (string color)
+    public Queen (string color) : base (color)
     {
-      this.Color = color;
     }
 	}
 

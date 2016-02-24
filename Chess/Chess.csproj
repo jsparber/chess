@@ -53,7 +53,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="gtk-gui\MainWindow.cs" />
-    <Compile Include="Player.cs" />
     <Compile Include="figures\King.cs" />
     <Compile Include="figures\Figure.cs" />
     <Compile Include="Game.cs" />
@@ -61,7 +60,6 @@
     <Compile Include="figures\Knight.cs" />
     <Compile Include="figures\Queen.cs" />
     <Compile Include="figures\Rock.cs" />
-    <Compile Include="Pawn.cs" />
     <Compile Include="figures\Empty.cs" />
     <Compile Include="coord.cs" />
     <Compile Include="Board.cs" />
@@ -71,6 +69,7 @@
     <Compile Include="TileWidget.cs" />
     <Compile Include="gtk-gui\Chess.TileWidget.cs" />
     <Compile Include="SidebarWidget.cs" />
+    <Compile Include="figures\Pawn.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -86,5 +85,23 @@
   </ProjectExtensions>
   <ItemGroup>
     <Folder Include="figures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\circle.svg" />
+    <None Include="img\cburnett\bB.svg" />
+    <None Include="img\cburnett\bK-full.svg" />
+    <None Include="img\cburnett\bK.svg" />
+    <None Include="img\cburnett\bN.svg" />
+    <None Include="img\cburnett\bP.svg" />
+    <None Include="img\cburnett\bQ.svg" />
+    <None Include="img\cburnett\bR.svg" />
+    <None Include="img\cburnett\wB.svg" />
+    <None Include="img\cburnett\wK-full.svg" />
+    <None Include="img\cburnett\wK.svg" />
+    <None Include="img\cburnett\wN.svg" />
+    <None Include="img\cburnett\wP.svg" />
+    <None Include="img\cburnett\wQ.svg" />
+    <None Include="img\cburnett\wR.svg" />
+    <None Include="img\cburnett\wbK.svg" />
   </ItemGroup>
 </Project>

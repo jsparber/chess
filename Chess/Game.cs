@@ -7,7 +7,6 @@ namespace Chess
 	{
  
     private Board board;
-    private Player[] player;
     private string currentPlayer { get; set; }
 
  
@@ -16,9 +15,6 @@ namespace Chess
 		{
       this.board = new Board ();
       this.currentPlayer = "white";
-      this.player = new Player[2];
-      this.player [0] = new Player ("white");
-      this.player [1] = new Player ("black");
 		}
     
     public string getFieldName(coord c) {
