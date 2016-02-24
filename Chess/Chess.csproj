@@ -63,7 +63,6 @@
     <Compile Include="Board.cs" />
     <Compile Include="GridWidget.cs" />
     <Compile Include="Graphics.cs" />
-    <Compile Include="gtk-gui\Chess.Graphics.cs" />
     <Compile Include="TileWidget.cs" />
     <Compile Include="gtk-gui\Chess.TileWidget.cs" />
     <Compile Include="SidebarWidget.cs" />

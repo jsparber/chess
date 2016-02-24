@@ -31,14 +31,7 @@
       <placeholder />
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Chess.Graphics" design-size="300 300">
-    <property name="MemberName" />
-    <property name="Visible">False</property>
-    <child>
-      <placeholder />
-    </child>
-  </widget>
-  <widget class="Gtk.Bin" id="Chess.SidebarWidget" design-size="300 300">
+  <widget class="Gtk.Bin" id="Chess.SidebarWidget" design-size="380 359">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
