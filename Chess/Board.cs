@@ -113,6 +113,7 @@ namespace Chess
 
       return this.fields [start.x, start.y].move (this, start, end);
     }
+
     public string getFieldFigure(coord c) {
       return this.fields[c.x, c.y].GetType ().Name;
     }
