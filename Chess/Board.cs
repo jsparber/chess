@@ -10,13 +10,13 @@ namespace Chess
     //lower case is black
     //X or any char differnt than rnbqkp is considered empty
     const string layout = "RNBQKBNR\n" +
-                         "PPPPPPPP\n" +
-                         "XXXXXXXX\n" +
-                         "XXXXXXXX\n" +
-                         "XXXXXXXX\n" +
-                         "XXXXXXXX\n" +
-                         "pppppppp\n" +
-                         "rnbkqbnr";
+                          "PPPPPPPP\n" +
+                          "XXXXXXXX\n" +
+                          "XXXXXXXX\n" +
+                          "XXXXXXXX\n" +
+                          "XXXXXXXX\n" +
+                          "pppppppp\n" +
+                          "rnbkqbnr";
 
     public Figure[,] fields { get; set; }
 
@@ -91,12 +91,22 @@ namespace Chess
 
     public bool Move (string color, coord start, coord end)
     {
+      Figure removedObj;
       if (checkMove (color, start, end)) {
-        if (this.fields [end.x, end.y].GetType ().Name != "Empty") {
-          this.removedFigures.Add (this.fields [end.x, end.y]);
-        }
+        removedObj = this.fields [end.x, end.y];
         this.fields [end.x, end.y] = this.fields [start.x, start.y];
         this.fields [start.x, start.y] = new Empty ();
+        if (!checkCheck (color)) {
+          //return to old state
+          Console.WriteLine("Check");
+          this.fields [start.x, start.y] = this.fields [end.x, end.y]; 
+          this.fields [end.x, end.y] = removedObj;
+          return false;
+        }
+        // finally add removed Figure to the removed figures list
+        if (removedObj.GetType ().Name != "Empty") {
+          this.removedFigures.Add (removedObj);
+        }
         return true;
       } else {
         return false;
@@ -114,12 +124,33 @@ namespace Chess
       return this.fields [start.x, start.y].move (this, start, end);
     }
 
-    public string getFieldFigure(coord c) {
-      return this.fields[c.x, c.y].GetType ().Name;
+    private bool checkCheck (string player)
+    {
+      coord king = new coord();
+      for (int x = 0; x < this.size.x; x++) {
+        for (int y = 0; y < this.size.y; y++) {
+         if (this.fields [x, y].getColor == player && getFieldFigure (new coord (x, y)) == "King")
+            king = new coord (x, y);
+        }
+      }
+        for (int x = 0; x < this.size.x; x++) {
+          for (int y = 0; y < this.size.y; y++) {
+            //if a move is posiblie means the king is checked
+          if (checkMove ((player == "white") ? "black" : "white", new coord (x, y), king))
+              return false;
+          }
+        }
+      return true;
     }
 
-    public string getFieldFigure(int x, int y) {
-      return this.fields[x, y].GetType ().Name;
+    public string getFieldFigure (coord c)
+    {
+      return this.fields [c.x, c.y].GetType ().Name;
+    }
+
+    public string getFieldFigure (int x, int y)
+    {
+      return this.fields [x, y].GetType ().Name;
     }
 
   }

@@ -6,46 +6,18 @@ namespace Chess
   {
     public King (string color) : base (color)
     {
-      this.rule = new coord (0, 0);
     }
 
-
-    public override bool move(Board board, coord start, coord end) {
-     
-        //allow to move on upper dx and downer dx
-          if (start.x + 1 == end.x){     
-        if(start.y + 1 == end.y){ 
+    public override bool move (Board board, coord start, coord end)
+    {
+      for (int x = (start.x == 0) ? 0 : start.x - 1; x <= start.x + 1; x++) {
+        for (int y = (start.y == 0) ? 0 : start.y - 1; y <= start.y + 1; y++) {
+          if (end.Equals (new coord (x, y)))
             return true;
         }
-        }
-
-        if (start.x + 1 == end.x){
-
-            if(start.y - 1 == end.y){
-        return true;
-          }
       }
-          if (start.y + 1 == end.y){
-        return true;
-          }
-
-        //allow to move on upper sx and downer sx
-       /* if (start.x - 1 == end.x){
-          if((start.y +1 == end.y)||(start.y - 1 == end.y))
-          }
-        return true;
-
-        if (start.y - 1 == end.y)
-          return true;
-
-        //return false;*/
-
-        //problem:king is moving like knight and
-        //is possible to move in side horizontal && vertical
-        //(from the end position of knightlike move
-   
-        return true;
-
-      }
+      return false;
     }
   }
+}
+
