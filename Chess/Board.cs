@@ -9,11 +9,20 @@ namespace Chess
     //game start layout of the board
     //lower case is black
     //X or any char differnt than rnbqkp is considered empty
-    const string layout = "RNBQKBNR\n" +
+    const string layout_original = "RNBKQBNR\n" +
+                                   "PPPPPPPP\n" +
+                                   "XXXXXXXX\n" +
+                                   "XXXXXXXX\n" +
+                                   "XXXXXXXX\n" +
+                                   "XXXXXXXX\n" +
+                                   "pppppppp\n" +
+                                   "rnbkqbnr";
+    //check mate in one move
+    const string layout = "RNXKXBNR\n" +
                           "PPPPPPPP\n" +
                           "XXXXXXXX\n" +
-                          "XXXXXXXX\n" +
-                          "XXXXXXXX\n" +
+                          "XXXXXBXX\n" +
+                          "QXXXXXXX\n" +
                           "XXXXXXXX\n" +
                           "pppppppp\n" +
                           "rnbkqbnr";
@@ -96,21 +105,30 @@ namespace Chess
         removedObj = this.fields [end.x, end.y];
         this.fields [end.x, end.y] = this.fields [start.x, start.y];
         this.fields [start.x, start.y] = new Empty ();
+        //return to old state if there is still check
         if (!checkCheck (color)) {
-          //return to old state
-          Console.WriteLine("Check");
-          this.fields [start.x, start.y] = this.fields [end.x, end.y]; 
-          this.fields [end.x, end.y] = removedObj;
-          return false;
+          Console.WriteLine ("Check");
+          if (!checkCheckMate (color, new coord (0, 0))) {
+            Console.WriteLine ("Check mate");
+          } 
+            this.fields [start.x, start.y] = this.fields [end.x, end.y]; 
+            this.fields [end.x, end.y] = removedObj;
         }
         // finally add removed Figure to the removed figures list
-        if (removedObj.GetType ().Name != "Empty") {
-          this.removedFigures.Add (removedObj);
+        else {
+          if (removedObj.GetType ().Name != "Empty") {
+            this.removedFigures.Add (removedObj);
+          }
+          if (!checkCheck ((color == "white") ? "black" : "white")) {
+            Console.WriteLine ("Check");
+            if (!checkCheckMate ((color == "white") ? "black" : "white", new coord (0, 0))) {
+              Console.WriteLine ("Check mate");
+            }
+          }
+          return true;
         }
-        return true;
-      } else {
-        return false;
-      }
+      } 
+      return false;
     }
     //returns true if the move is possible
     //retruns false if the move is not possible
@@ -124,23 +142,52 @@ namespace Chess
       return this.fields [start.x, start.y].move (this, start, end);
     }
 
+    //returns true if there is no check
     private bool checkCheck (string player)
     {
-      coord king = new coord();
+      coord king = new coord ();
       for (int x = 0; x < this.size.x; x++) {
         for (int y = 0; y < this.size.y; y++) {
-         if (this.fields [x, y].getColor == player && getFieldFigure (new coord (x, y)) == "King")
+          if (this.fields [x, y].getColor == player && getFieldFigure (new coord (x, y)) == "King")
             king = new coord (x, y);
         }
       }
+      for (int x = 0; x < this.size.x; x++) {
+        for (int y = 0; y < this.size.y; y++) {
+          //if a move is posiblie means the king is checked
+          if (checkMove ((player == "white") ? "black" : "white", new coord (x, y), king))
+            return false;
+        }
+      }
+      return true;
+    }
+
+    private bool checkCheckMate (string player, coord start)
+    {
+      Figure removedObj;
+      bool isCheck = true;
         for (int x = 0; x < this.size.x; x++) {
           for (int y = 0; y < this.size.y; y++) {
-            //if a move is posiblie means the king is checked
-          if (checkMove ((player == "white") ? "black" : "white", new coord (x, y), king))
-              return false;
+            coord end = new coord (x, y);
+            if (checkMove (player, start, end)) {
+              removedObj = this.fields [end.x, end.y];
+              this.fields [end.x, end.y] = this.fields [start.x, start.y];
+              this.fields [start.x, start.y] = new Empty ();
+              //if is still check it return false;
+              isCheck = !checkCheck (player);
+              this.fields [start.x, start.y] = this.fields [end.x, end.y]; 
+              this.fields [end.x, end.y] = removedObj;
+            } 
           }
         }
-      return true;
+        if (isCheck) {
+          if (start.x < this.size.x - 1) {
+            isCheck = !checkCheckMate (player, new coord (start.x + 1, start.y));
+          } else if (start.y < this.size.y - 1) {
+            isCheck = !checkCheckMate (player, new coord (0, start.y + 1));
+          }
+        }
+      return !isCheck;
     }
 
     public string getFieldFigure (coord c)
