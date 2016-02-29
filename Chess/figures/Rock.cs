@@ -9,7 +9,7 @@ namespace Chess
       this.rule = new coord (1, 0);
     }
 
-    public override bool move (Figure[,] board, coord start, coord end)
+    public override bool move (Board board, coord start, coord end)
     {
     //  int x = this.rule.x;
      // int y = this.rule.y;
@@ -17,14 +17,14 @@ namespace Chess
       if (start.x == end.x) {
         if (start.y < end.y) {
           for (int i = start.y + 1; i < end.y; i++) {  
-            if (board [start.x, i].GetType ().Name.ToLower () != "empty") {
+            if (board.getFieldFigure (start.x, i) != "Empty") {
               return false;
             }
           }
           return true;
         } else {
           for (int i = start.y - 1; i > end.y; i--) {  
-            if (board [start.x, i].GetType ().Name.ToLower () != "empty") {
+            if (board.getFieldFigure(start.x, i) != "Empty") {
               return false;
             }
           }
@@ -34,14 +34,14 @@ namespace Chess
       else if (start.y == end.y) {
         if (start.x < end.x) {
           for (int i = start.x + 1; i < end.x; i++) {  
-            if (board [i, start.y].GetType ().Name.ToLower () != "empty") {
+            if (board.getFieldFigure(i, start.y) != "Empty") {
               return false;
             }
           }
           return true;
         } else {
           for (int i = start.x - 1; i > end.x; i--) {  
-            if (board [i, start.y].GetType ().Name.ToLower () != "empty") {
+            if (board.getFieldFigure(i, start.y) != "Empty") {
               return false;
             }
           }
