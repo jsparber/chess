@@ -10,7 +10,7 @@ namespace Chess
       this.rule = new coord (1, 2);
     }
 
-    public override bool move (Figure[,] board, coord start, coord end)
+    public override bool move (Board board, coord start, coord end)
     {
       int x = this.rule.x;
       int y = this.rule.y;

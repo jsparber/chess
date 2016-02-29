@@ -8,7 +8,7 @@ namespace Chess
     {
     }
 
-    public override bool move(Figure[,] board, coord start, coord end) {
+    public override bool move(Board board, coord start, coord end) {
       return true;
     }
   }

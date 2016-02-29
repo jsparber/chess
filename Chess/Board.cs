@@ -111,7 +111,10 @@ namespace Chess
           (this.fields [end.x, end.y].getColor == color))
         return false; 
 
-      return this.fields [start.x, start.y].move (this.fields, start, end);
+      return this.fields [start.x, start.y].move (this, start, end);
+    }
+    public string getFieldFigure(coord c) {
+      return this.fields[c.x, c.y].GetType ().Name;
     }
 
   }

@@ -22,11 +22,11 @@ namespace Chess
       get {return color;}
     }
 
-    public virtual bool move(Figure[,] board, coord start, coord end) {
+    public virtual bool move(Board board, coord start, coord end) {
       return true;
     }
 
-    public virtual bool checkMove(Figure[,] board, coord start, coord end) {
+    public virtual bool checkMove(Board board, coord start, coord end) {
       return true;
     }
   }
