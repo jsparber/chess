@@ -45,12 +45,6 @@ namespace Chess
         }
       }  
        return true;
-         
-      
-        
       }
-  
-      
-    }
-
+   }
 }
