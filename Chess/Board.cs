@@ -9,7 +9,7 @@ namespace Chess
     //game start layout of the board
     //lower case is black
     //X or any char differnt than rnbqkp is considered empty
-    const string layout = "RNBQKBNR\n" +
+    const string layout = "RNBKQBNR\n" +
                          "PPPPPPPP\n" +
                          "XXXXXXXX\n" +
                          "XXXXXXXX\n" +
@@ -115,6 +115,10 @@ namespace Chess
     }
     public string getFieldFigure(coord c) {
       return this.fields[c.x, c.y].GetType ().Name;
+    }
+
+    public string getFigureName (int x, int y) {
+      return this.fields [x, y].GetType ().Name.ToLower ();
     }
 
   }
