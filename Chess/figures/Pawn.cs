@@ -4,6 +4,7 @@ namespace Chess
 {
   public class Pawn : Figure
 	{
+    /* Definition of the variable count used for the check of the movement of the pawn */
     private int count;
     /* Constructor of the object pawn*/
     public Pawn (string color) : base(color)
@@ -93,9 +94,7 @@ namespace Chess
       } 
       /* If the color is black we have a decrement of the value y */
       else {
-
       /*????????????????????????????????????????????????????????????????????*/
-
       if(this.count == 0){
 
         /* If the final value of y is equal to the starting value minus two */
@@ -105,13 +104,10 @@ namespace Chess
           if (start.x == end.x) {
             /* Setting count to two */
             this.count = 2;
-
             return true;
           }
         }
       }
-
-
       /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!e*/
 
         /* If the final value of y is equal to the starting value minus one */
@@ -124,12 +120,7 @@ namespace Chess
               this.count = 1;
             }
             return true;
-
           }
-        }
-          /* If count is zero it will be set to one */        
-        if (this.count == 0) {             
-          this.count = 1;
         }
 
         /* If the value of x and y are not corresponding to the rule the movement isn't allowed  */
