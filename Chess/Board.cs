@@ -99,39 +99,31 @@ namespace Chess
 
     public Message Move (string color, coord start, coord end)
     {
-      bool isCastling = false;
       Message result = new Message (false, "");
-      if (this.getFieldFigure (start) == "King" && this.fields [start.x, start.y].getColor == color) {
-        isCastling = doCastling (color, start, end);
-        if (isCastling) {
-          result.error = false;
-          return result;
+      if (doCastling (color, start, end)) {
+        return result;
+      } else if (checkMove (color, start, end) && !isCheck (color, start, end)) {
+        if (this.fields [end.x, end.y].GetType ().Name != "Empty") {
+          this.removedFigures.Add (this.fields [end.x, end.y]);
         }
-      }
-      if (checkMove (color, start, end)) {
-        //check if the king will be in check  after this move and don't allow it if it is
-        if (!isCheck (color, start, end)) {
-          if (this.fields [end.x, end.y].GetType ().Name != "Empty") {
-            this.removedFigures.Add (this.fields [end.x, end.y]);
-          }
-          this.fields [end.x, end.y] = this.fields [start.x, start.y];
-          this.fields [start.x, start.y] = new Empty ();
+        this.fields [end.x, end.y] = this.fields [start.x, start.y];
+        this.fields [start.x, start.y] = new Empty ();
 
-          //check if with this move the other player will be in check or even checkmate
-          string opColor = (color == "white") ? "black" : "white";
-          if (isCheck (opColor)) {
-            result.msg = "check";
-            if (isCheckMate (opColor, new coord (0, 0))) {
-              result.msg = "checkmate";
-            }
+        //check if with this move the other player will be in check or even checkmate
+        string opColor = (color == "white") ? "black" : "white";
+        if (isCheck (opColor)) {
+          result.msg = "check";
+          if (isCheckMate (opColor, new coord (0, 0))) {
+            result.msg = "checkmate";
           }
-          this.fields [end.x, end.y].hasMoved = true;
-          return result;
         }
+        this.fields [end.x, end.y].hasMoved = true;
+        return result;
       } 
       result.error = true;
       return result;
     }
+
     //returns true if the move is possible
     //retruns false if the move is not possible
     private bool checkMove (string color, coord start, coord end)
@@ -144,6 +136,7 @@ namespace Chess
       return this.fields [start.x, start.y].move (this, start, end);
     }
 
+    //check if the king will be in check after this move and don't allow it if it is
     private bool isCheck (string player, coord start, coord end)
     {
       coord king = new coord ();
@@ -211,7 +204,7 @@ namespace Chess
     //special moves castling
     public bool doCastling (string player, coord start, coord end)
     {
-      if (this.fields [start.x, start.y].hasMoved == false) {
+      if (this.getFieldFigure (start) == "King" && this.fields [start.x, start.y].getColor == player && this.fields [start.x, start.y].hasMoved == false) {
         if (start.x == end.x + 2 && start.x > end.x && !Move (player, start, new coord (start.x - 1, start.y)).error) {
           if (!Move (player, new coord (start.x - 1, start.y), end).error) {
             Figure tmpPosition = this.fields [end.x, end.y];
