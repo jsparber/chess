@@ -6,7 +6,6 @@ namespace Chess
   {
     public Rock (string color) : base (color)
     {
-      this.rule = new coord (1, 0);
     }
 
     public override bool move (Board board, coord start, coord end)
