@@ -64,9 +64,9 @@
     <Compile Include="GridWidget.cs" />
     <Compile Include="Graphics.cs" />
     <Compile Include="TileWidget.cs" />
-    <Compile Include="gtk-gui\Chess.TileWidget.cs" />
     <Compile Include="SidebarWidget.cs" />
     <Compile Include="figures\Pawn.cs" />
+    <Compile Include="Message.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

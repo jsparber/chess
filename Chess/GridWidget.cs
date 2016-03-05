@@ -46,15 +46,6 @@ namespace Chess
       this.ShowAll ();
     }
 
-    private static VBox createRemovedList (Game g)
-    {
-      foreach (Figure f in g.getRemovedFigures()) {
-        Console.WriteLine (f.GetType ().ToString ());
-      }
-      return new VBox ();
-
-    }
-
     private void updateBoard ()
     {
       //remove all children
@@ -68,11 +59,11 @@ namespace Chess
     private void onTileClicked (object obj, ButtonPressEventArgs args)
     {
       TileWidget tile = (TileWidget)obj;
-      Console.WriteLine (tile.position.x + ", " + tile.position.y + " " + tile.color + " " + tile.figure);
+      //Console.WriteLine (tile.position.x + ", " + tile.position.y + " " + tile.color + " " + tile.figure);
       if (!this.clicked) {
         this.clickedPosition = new coord (tile.position.x, tile.position.y);
         //check if there is something to move on the clicked tile
-        if (this.game.Move (new coord (this.clickedPosition.x, this.clickedPosition.y))) {
+        if (!this.game.Move (new coord (this.clickedPosition.x, this.clickedPosition.y)).error) {
           this.clicked = true;
           Image circle = tile.loadCircle (new coord (100, 100));
           Fixed f = (Fixed)(tile.Child);
@@ -80,10 +71,10 @@ namespace Chess
           f.ShowAll ();
         }
       } else {
-        this.game.Move (new coord (this.clickedPosition.x, this.clickedPosition.y), new coord (tile.position.x, tile.position.y));
+        Message msg = this.game.Move (new coord (this.clickedPosition.x, this.clickedPosition.y), new coord (tile.position.x, tile.position.y));
         this.clicked = false;
         updateBoard ();
-        gui.updateGui ();
+        gui.updateGui (msg);
       }
     }
   }

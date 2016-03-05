@@ -29,7 +29,6 @@ namespace Chess
         }
       }
       this.ShowAll ();
-
     }
   }
 }

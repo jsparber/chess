@@ -10,13 +10,13 @@ namespace Chess
     //lower case is black
     //X or any char differnt than rnbqkp is considered empty
     const string layout = "RNBKQBNR\n" +
-                                   "PPPPPPPP\n" +
-                                   "XXXXXXXX\n" +
-                                   "XXXXXXXX\n" +
-                                   "XXXXXXXX\n" +
-                                   "XXXXXXXX\n" +
-                                   "pppppppp\n" +
-                                   "rnbkqbnr";
+                          "PPPPPPPP\n" +
+                          "XXXXXXXX\n" +
+                          "XXXXXXXX\n" +
+                          "XXXXXXXX\n" +
+                          "XXXXXXXX\n" +
+                          "pppppppp\n" +
+                          "rnbkqbnr";
     /*const string layout = "RXXKXXXR\n" +
                           "xxxxxxxx\n" +
                           "XXXXXXXX\n" +
@@ -97,24 +97,20 @@ namespace Chess
     }
 
 
-    public bool Move (string color, coord start, coord end)
+    public Message Move (string color, coord start, coord end)
     {
       bool isCastling = false;
+      Message result = new Message (false, "");
       if (this.getFieldFigure (start) == "King" && this.fields [start.x, start.y].getColor == color) {
         isCastling = doCastling (color, start, end);
         if (isCastling) {
-          //this.fields [end.x, end.y].hasMoved = true;
-          return true;
+          result.error = false;
+          return result;
         }
       }
       if (checkMove (color, start, end)) {
-        //check if the king will be in check or even checkmate after this move and donw't allow it if it is
-        if (isCheck (color, start, end)) {
-          Console.WriteLine ("Check");
-          if (isCheckMate (color, new coord (0, 0))) {
-            Console.WriteLine ("Check mate");
-          } 
-        } else {
+        //check if the king will be in check  after this move and don't allow it if it is
+        if (!isCheck (color, start, end)) {
           if (this.fields [end.x, end.y].GetType ().Name != "Empty") {
             this.removedFigures.Add (this.fields [end.x, end.y]);
           }
@@ -122,17 +118,19 @@ namespace Chess
           this.fields [start.x, start.y] = new Empty ();
 
           //check if with this move the other player will be in check or even checkmate
-          if (isCheck ((color == "white") ? "black" : "white")) {
-            Console.WriteLine ("Check");
-            if (isCheckMate ((color == "white") ? "black" : "white", new coord (0, 0))) {
-              Console.WriteLine ("Check mate");
+          string opColor = (color == "white") ? "black" : "white";
+          if (isCheck (opColor)) {
+            result.msg = "check";
+            if (isCheckMate (opColor, new coord (0, 0))) {
+              result.msg = "checkmate";
             }
           }
           this.fields [end.x, end.y].hasMoved = true;
-          return true;
+          return result;
         }
       } 
-      return false;
+      result.error = true;
+      return result;
     }
     //returns true if the move is possible
     //retruns false if the move is not possible
@@ -214,11 +212,11 @@ namespace Chess
     public bool doCastling (string player, coord start, coord end)
     {
       if (this.fields [start.x, start.y].hasMoved == false) {
-        if (start.x == end.x + 2 && start.x > end.x && Move (player, start, new coord (start.x - 1, start.y))) {
-          if (Move (player, new coord (start.x - 1, start.y), end)) {
+        if (start.x == end.x + 2 && start.x > end.x && !Move (player, start, new coord (start.x - 1, start.y)).error) {
+          if (!Move (player, new coord (start.x - 1, start.y), end).error) {
             Figure tmpPosition = this.fields [end.x, end.y];
             this.fields [end.x, end.y] = new Empty ();
-            if (Move (player, new coord (0, start.y), new coord (2, start.y))) {
+            if (!Move (player, new coord (0, start.y), new coord (2, start.y)).error) {
               this.fields [end.x, end.y] = tmpPosition;
               return true;
             } else {
@@ -231,12 +229,11 @@ namespace Chess
             this.fields [start.x - 1, start.y] = new Empty ();
           }
 
-        }
-        else if (start.x == end.x - 2 && start.x < end.x && Move (player, start, new coord (start.x + 1, start.y))) {
-          if (Move (player, new coord (start.x + 1, start.y), end)) {
+        } else if (start.x == end.x - 2 && start.x < end.x && !Move (player, start, new coord (start.x + 1, start.y)).error) {
+          if (!Move (player, new coord (start.x + 1, start.y), end).error) {
             Figure tmpPosition = this.fields [end.x, end.y];
             this.fields [end.x, end.y] = new Empty ();
-            if (Move (player, new coord (7, start.y), new coord (4, start.y))) {
+            if (!Move (player, new coord (7, start.y), new coord (4, start.y)).error) {
               this.fields [end.x, end.y] = tmpPosition;
               return true;
             } else {

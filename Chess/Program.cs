@@ -13,7 +13,8 @@ namespace Chess
       Game g = new Game ();
 
       //creates the gui for the Game g
-      Graphics gui = new Graphics (g);
+      //Graphics gui = new Graphics (g);
+      new Graphics (g);
 
       Application.Run ();
      

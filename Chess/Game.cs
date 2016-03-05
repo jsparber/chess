@@ -9,8 +9,6 @@ namespace Chess
     private Board board;
     private string currentPlayer { get; set; }
 
- 
-    //constructor
     public Game ()
 		{
       this.board = new Board ();
@@ -47,15 +45,17 @@ namespace Chess
       return this.board.size;
     }
 
-    public bool Move(coord start, coord end) {
-      bool res = this.board.Move (this.currentPlayer, start, end);
-      if (res)
+    public Message Move(coord start, coord end) {
+      Message msg = this.board.Move (this.currentPlayer, start, end);
+      if (!msg.error) {
         tooglePlayer ();
-      return res;
+      }
+      msg.player = this.currentPlayer;
+      return msg;
     }
 
-    public bool Move(coord start) {
-      return (this.getFieldName(start) != "Empty");
+    public Message Move(coord start) {
+      return new Message(this.getFieldName(start) == "Empty", "emptyClick");
     }
 
     private void tooglePlayer() {
