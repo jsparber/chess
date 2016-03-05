@@ -5,10 +5,12 @@ namespace Chess
   public class Figure
   {
     private string color;
+    public bool hasMoved { get; set; }
     public coord rule { get; set; }
 
     public Figure (string color) {
       this.color = color;
+      this.hasMoved = false;
     }
 
    public Figure () {
