@@ -35,7 +35,9 @@ namespace Chess
           start.y + direction == end.y &&
           board.getFieldFigure (start.x, start.y + direction) == "Empty")
         return true;
-      if ((start.x + 1 == end.x || start.x - 1 == end.x) && start.y + direction == end.y) {
+      if ((start.x + 1 == end.x || start.x - 1 == end.x) &&
+          start.y + direction == end.y &&
+          board.getFieldFigure (end) != "Empty") {
         return true;
       }
 
