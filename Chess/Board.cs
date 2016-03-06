@@ -102,6 +102,8 @@ namespace Chess
       Message result = new Message (false, "");
       if (doCastling (color, start, end)) {
         return result;
+      } else if (doEnPassant (color, start, end)) { 
+        return result;
       } else if (checkMove (color, start, end) && !isCheck (color, start, end)) {
         if (this.fields [end.x, end.y].GetType ().Name != "Empty") {
           this.removedFigures.Add (this.fields [end.x, end.y]);
@@ -116,6 +118,22 @@ namespace Chess
           if (isCheckMate (opColor, new coord (0, 0))) {
             result.msg = "checkmate";
           }
+        }
+        if (this.getFieldFigure (end) == "Pawn") {
+          ((Pawn)this.fields [end.x, end.y]).justMoved = true;
+        }
+
+        //remove all justMoved
+        for (int x = 0; x < this.size.x; x++) {
+          for (int y = 0; y < this.size.y; y++) {
+            if (this.fields [x, y].getColor == color && getFieldFigure (new coord (x, y)) == "Pawn") {
+              ((Pawn)this.fields [x, y]).justMoved = false;
+            }
+          }
+        }
+        //set moved Pawn's justMoved to true;
+        if (this.getFieldFigure (end) == "Pawn" && (start.y + 2 == end.y || start.y - 2 == end.y)) {
+          ((Pawn)this.fields [end.x, end.y]).justMoved = true;
         }
         this.fields [end.x, end.y].hasMoved = true;
         return result;
@@ -202,7 +220,7 @@ namespace Chess
     }
 
     //special moves castling
-    public bool doCastling (string player, coord start, coord end)
+    private bool doCastling (string player, coord start, coord end)
     {
       if (this.getFieldFigure (start) == "King" && this.fields [start.x, start.y].getColor == player && this.fields [start.x, start.y].hasMoved == false) {
         if (start.x == end.x + 2 && start.x > end.x && !Move (player, start, new coord (start.x - 1, start.y)).error) {
@@ -241,6 +259,33 @@ namespace Chess
 
         }
       }
+      return false;
+    }
+
+
+    private bool doEnPassant (string player, coord start, coord end)
+    {
+      int direction;
+      if (player == "white") {
+        direction = 1;
+      } else {
+        direction = -1;
+      }
+      if (this.getFieldFigure (start) == "Pawn" &&
+          this.fields [start.x, start.y].getColor == player &&
+          (start.x + 1 == end.x || start.x - 1 == end.x) &&
+          start.y + direction == end.y &&
+          this.getFieldFigure(end.x, start.y) == "Pawn" &&
+          ((Pawn)this.fields [end.x, start.y]).justMoved &&
+          (this.getFieldFigure (end.x, end.y) == "Empty")) {
+        //do move;
+        this.removedFigures.Add (this.fields [end.x, end.y - direction]);
+        this.fields [end.x, end.y - direction] = new Empty ();
+        this.fields [end.x, end.y] = this.fields [start.x, start.y];
+        this.fields [start.x, start.y] = new Empty ();
+        return true;
+      }
+
       return false;
     }
 

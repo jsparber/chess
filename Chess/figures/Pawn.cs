@@ -4,11 +4,14 @@ namespace Chess
 {
   public class Pawn : Figure
   {
+    public bool justMoved { get; set; }
+
     /* Definition of the variable count used for the check of the movement of the pawn */
 
     /* Constructor of the object pawn*/
     public Pawn (string color) : base (color)
     {
+      justMoved = false;
     }
 
 
