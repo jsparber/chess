@@ -25,7 +25,7 @@ namespace Chess
     }
 
     public Message Move(coord start) {
-      return new Message(this.board.getFieldFigureName(start) == "Empty", "firstClick", "", "");
+      return new Message(this.board.getFieldFigureName(start) == "Empty" || this.board.getFieldFigureColor(start) != this.currentPlayer, "firstClick", "", this.currentPlayer);
     }
 
     public void switchFigures (string figure, string color)

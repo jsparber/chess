@@ -41,7 +41,7 @@ namespace Chess
       this.mainGrid.updateGrid ();
       if (msg.format() != "")
         this.status.Text = msg.format ();
-      //this.chooser.open (msg.player);
+      //this.chooser.open (msg.player, new coord(0, 0));
       if (msg.action == "chooser") {
       }
       msg.print ();
@@ -76,14 +76,14 @@ namespace Chess
 
     public bool clickHandler (coord start, coord end)
     {
+      Message msg;
       if (start.Equals(end)) {
-        return !this.game.Move (start).error;
+        msg = this.game.Move (start);
       } else {
-        Message msg = this.game.Move (start, end);
-        //if (msg.error == false && msg.action == "chooser") {
+        msg = this.game.Move (start, end);
         updateGui (msg);
       }
-      return false;
+      return !msg.error;
     }
   }
 }

@@ -63,7 +63,7 @@ namespace Chess
       //Console.WriteLine (tile.position.x + ", " + tile.position.y + " " + tile.color + " " + tile.figure);
       if (!this.clicked) {
         this.clickedPosition = new coord (tile.position.x, tile.position.y);
-        //check if there is something to move on the clicked tile
+
         if (this.callback (this.clickedPosition, this.clickedPosition)) {
           this.clicked = true;
           Image circle = tile.loadCircle (new coord (100, 100));
@@ -72,7 +72,10 @@ namespace Chess
           f.ShowAll ();
         }
       } else {
-        this.callback (new coord (this.clickedPosition.x, this.clickedPosition.y), new coord (tile.position.x, tile.position.y));
+        this.callback (this.clickedPosition, tile.position);
+        if (this.clickedPosition.Equals (tile.position)) {
+          updateGrid ();
+        }
         this.clicked = false;
       }
   }
