@@ -15,7 +15,7 @@ namespace Chess
     public TileWidget (string colorBg, string figure, string color, coord size)
     {
       string imgName;
-      if (figure != "" || figure.ToLower() == "empty") {
+      if (color != "" && figure != "" && figure.ToLower() != "empty") {
         if (figure.ToLower() != "knight") {
           imgName = color.ToLower () [0].ToString () + figure.ToUpper () [0].ToString ();
         } else {
@@ -37,11 +37,10 @@ namespace Chess
         Gdk.Color col = new Gdk.Color ();
         Gdk.Color.Parse (colorBg, ref col);
         this.ModifyBg (StateType.Normal, col);
+      }
         this.figure = figure;
         this.color = color;
         this.colorBg = colorBg;
-      }
-      //this.Build ();
     }
 
     public Gtk.Image loadSvg (string file, coord size)

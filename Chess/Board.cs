@@ -66,13 +66,18 @@ namespace Chess
     }
 
     //create the choose array
-    public Figure[] getChooseableFigure (string player) {
+    public Figure[] getChooseableFigure () {
       Figure[] chooseableFigures = new Figure[chooseLayout.Length];
       for  (int i = 0; i < chooseLayout.Length; i++) {
         chooseableFigures[i] = figureLookup (chooseLayout [i]);
-        chooseableFigures [i].color = player;
+        chooseableFigures [i].color = "";
         }
       return chooseableFigures;
+    }
+
+    public void switchFigures (string figure, string color)
+    {
+      
     }
 
     private Figure figureLookup (char c)
@@ -321,6 +326,9 @@ namespace Chess
 
     public Figure getField(coord c) {
       return this.fields [c.x, c.y];
+    }
+    public coord getSize() {
+      return this.size;
     }
 
   }

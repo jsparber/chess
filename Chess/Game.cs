@@ -14,11 +14,6 @@ namespace Chess
       this.board = new Board ();
       this.currentPlayer = "white";
 		}
-    
-
-    public coord getSize() {
-      return this.board.size;
-    }
 
     public Message Move(coord start, coord end) {
       Message msg = this.board.Move (this.currentPlayer, start, end);
@@ -31,6 +26,11 @@ namespace Chess
 
     public Message Move(coord start) {
       return new Message(this.board.getFieldFigureName(start) == "Empty", "firstClick", "", "");
+    }
+
+    public void switchFigures (string figure, string color)
+    {
+      board.switchFigures (figure, color);
     }
 
     private void tooglePlayer() {

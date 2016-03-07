@@ -3,18 +3,24 @@ using Gtk;
 
 namespace Chess
 {
+  public delegate bool Cb(coord start, coord end);
   public class Graphics : Gtk.Window
   {
     private GridWidget mainGrid;
     private SidebarWidget sidebarRight;
     private SidebarWidget sidebarLeft;
+    private Popup chooser;
     private Label status;
+    private Game game;
     public Graphics (Game g) : base (Gtk.WindowType.Toplevel)
     {
+      Build ();
+      this.game = g;
       VBox gridWrapper = new VBox ();
       HBox box = new HBox ();
       this.status = new Label ("");
-      this.mainGrid = new GridWidget (g, this);
+      this.chooser = new Popup (g.board.getChooseableFigure(), handleChooser);
+      this.mainGrid = new GridWidget (g.board, clickHandler);
       gridWrapper.PackStart (status , false, false, 0);
       gridWrapper.PackStart (this.mainGrid, false, false, 0);
       this.sidebarLeft = new SidebarWidget (g.getRemovedFigures (), "black");
@@ -27,19 +33,23 @@ namespace Chess
       box.ShowAll ();
       this.Add (box);
       updateGui(new Message(false, "", "", "white"));
-      //new Popup (g.board.getChooseableFigure("white"));
-      Build ();
     }
 
     public void updateGui(Message msg) {
       this.sidebarLeft.updateSidebar ();
       this.sidebarRight.updateSidebar ();
+      this.mainGrid.updateGrid ();
       if (msg.format() != "")
         this.status.Text = msg.format ();
+      //this.chooser.open (msg.player);
       if (msg.action == "chooser") {
       }
       msg.print ();
    
+    }
+
+    public void handleChooser(string figure, string color) {
+      this.game.switchFigures (figure, color);
     }
 
     protected void OnDeleteEvent (object sender, DeleteEventArgs a)
@@ -62,6 +72,18 @@ namespace Chess
       this.DefaultHeight = 800;
       this.Show ();
       this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
+    }
+
+    public bool clickHandler (coord start, coord end)
+    {
+      if (start.Equals(end)) {
+        return !this.game.Move (start).error;
+      } else {
+        Message msg = this.game.Move (start, end);
+        //if (msg.error == false && msg.action == "chooser") {
+        updateGui (msg);
+      }
+      return false;
     }
   }
 }

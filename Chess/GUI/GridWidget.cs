@@ -5,18 +5,19 @@ namespace Chess
 {
   public partial class GridWidget : Table
   {
-    private Game game;
-    private Graphics gui;
+    //public delegate bool Cb(coord start, coord end);
+    private Board board;
+    private Cb callback;
 
     private coord clickedPosition;
 
     private bool clicked;
 
-    public GridWidget (Game g , Graphics gui) : base ((uint)((Game)g).getSize().x, (uint)((Game)g).getSize().y, true)
+    public GridWidget (Board board, Cb callback) : base ((uint)board.getSize ().x, (uint)board.getSize ().y, true)
     {
+      this.callback = callback;
       this.clicked = false;
-      this.game = g;
-      this.gui = gui;
+      this.board = board;
       createBoard ();
     }
 
@@ -29,11 +30,11 @@ namespace Chess
     {
       //alternating background color for the grid
       string tileBackground = "white";
-      for (int x = 0; x < this.game.getSize ().x; x++) {
+      for (int x = 0; x < this.board.getSize ().x; x++) {
         tileBackground = (tileBackground == "white") ? "gray" : "white";
-        for (int y = 0; y < this.game.getSize ().y; y++) {
-          string type = this.game.board.getFieldFigureName (new coord (x, y));
-          string playerColor = this.game.board.getFieldFigureColor (new coord (x, y));
+        for (int y = 0; y < this.board.getSize ().y; y++) {
+          string type = this.board.getFieldFigureName (new coord (x, y));
+          string playerColor = this.board.getFieldFigureColor (new coord (x, y));
           tileBackground = (tileBackground == "white") ? "gray" : "white";
 
           type = (type == "Empty") ? "" : type;
@@ -46,14 +47,14 @@ namespace Chess
       this.ShowAll ();
     }
 
-    private void updateBoard ()
+    public void updateGrid ()
     {
       //remove all children
       foreach (Widget child in this.Children) {
         child.Destroy ();
       }
       //add all children
-      createBoard();
+      createBoard ();
     }
 
     private void onTileClicked (object obj, ButtonPressEventArgs args)
@@ -63,7 +64,7 @@ namespace Chess
       if (!this.clicked) {
         this.clickedPosition = new coord (tile.position.x, tile.position.y);
         //check if there is something to move on the clicked tile
-        if (!this.game.Move (new coord (this.clickedPosition.x, this.clickedPosition.y)).error) {
+        if (this.callback (this.clickedPosition, this.clickedPosition)) {
           this.clicked = true;
           Image circle = tile.loadCircle (new coord (100, 100));
           Fixed f = (Fixed)(tile.Child);
@@ -71,12 +72,10 @@ namespace Chess
           f.ShowAll ();
         }
       } else {
-        Message msg = this.game.Move (new coord (this.clickedPosition.x, this.clickedPosition.y), new coord (tile.position.x, tile.position.y));
+        this.callback (new coord (this.clickedPosition.x, this.clickedPosition.y), new coord (tile.position.x, tile.position.y));
         this.clicked = false;
-        updateBoard ();
-        gui.updateGui (msg);
       }
-    }
+  }
   }
 }
 
