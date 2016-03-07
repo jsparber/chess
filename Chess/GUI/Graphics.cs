@@ -33,7 +33,7 @@ namespace Chess
       box.PackStart (new HBox ());
       box.ShowAll ();
       this.Add (box);
-      updateGui (new Message (false, "", "", "black"));
+      updateGui (this.game.initialState ());
     }
 
     public void updateGui (Message msg)

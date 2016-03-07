@@ -18,7 +18,6 @@ namespace Chess
       this.callback = callback;
       this.clicked = false;
       this.board = board;
-      createBoard ();
     }
 
     private void addFigure (Widget w, coord pos)

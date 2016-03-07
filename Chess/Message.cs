@@ -6,10 +6,10 @@ namespace Chess
   {
     public bool error { get; set;}
     public string msg { get; set;}
-    public string player { get; set;}
+    public Player player { get; set;}
     public string action { get; set;}
 
-    public Message (bool error, string msg, string action, string player)
+    public Message (bool error, string msg, string action, Player player)
     {
       this.error = error;
       this.msg = msg;
@@ -23,15 +23,14 @@ namespace Chess
     }
 
     public string format () {
-      string opPlayer = (this.player == "white") ? "black" : "white";
-      string returnMsg = "It's " + opPlayer + "'s turn.";
+      string returnMsg = "It's " + this.player.next().ToString() + "'s turn.";
 
       switch (this.msg) {
       case "check":
-        returnMsg += " | " + opPlayer + " is in check";
+        returnMsg += " | " + this.player.next().ToString() + " is in check";
         break;
       case "checkmate":
-        returnMsg = opPlayer + " is checkmate | " + this.player + " wins";
+        returnMsg = this.player.next().ToString() + " is checkmate | " + this.player.ToString() + " wins";
         break;
       }
       return returnMsg;

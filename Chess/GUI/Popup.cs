@@ -20,10 +20,10 @@ namespace Chess
       this.Add (this.box);
     }
 
-    public void open(string color, coord position) {
+    public void open(Player player, coord position) {
      close ();
      foreach (Figure fig in this.figures) {
-        TileWidget tile = new TileWidget ("", fig.GetType ().Name, color , new coord (100, 100));
+        TileWidget tile = new TileWidget ("", fig.GetType ().Name, player.ToString() , new coord (100, 100));
         tile.position = position;
         box.PackStart (tile);
         tile.ButtonPressEvent += onTileClicked;
