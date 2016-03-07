@@ -2,7 +2,6 @@
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using Cairo;
 using Gtk;
 namespace Chess
 {
