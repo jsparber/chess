@@ -9,7 +9,7 @@ namespace Chess
     //game start layout of the board
     //lower case is black
     //X or any char differnt than rnbqkp is considered empty
-    const string layout = "RNBKQBNR\n" +
+    /*const string layout = "RNBKQBNR\n" +
                           "PPPPPPPP\n" +
                           "XXXXXXXX\n" +
                           "XXXXXXXX\n" +
@@ -17,17 +17,16 @@ namespace Chess
                           "XXXXXXXX\n" +
                           "pppppppp\n" +
                           "rnbkqbnr";
-
-    const string chooseLayout = "RNBQ";
-    /*const string layout = "RXXKXXXR\n" +
-                          "xxxxxxxx\n" +
-                          "XXXXXXXX\n" +
-                          "XXXXXXXX\n" +
-                          "XXXXXXXX\n" +
-                          "XXXXXXXX\n" +
-                          "xxxxxxxx\n" +
-                          "rxxkxxxr";
 */
+    const string chooseLayout = "RNBQ";
+    const string layout = "RXXKXXXR\n" +
+                          "xxxxxpxx\n" +
+                          "XXXXXXXX\n" +
+                          "XXXXXXXX\n" +
+                          "XXXXXXXX\n" +
+                          "XXXXXXXX\n" +
+                          "xxxxxxPx\n" +
+                          "rxxkxxxr";
     public Figure[,] fields { get; set; }
 
     public coord size { get; set; }
@@ -75,8 +74,17 @@ namespace Chess
       return chooseableFigures;
     }
 
-    public void switchFigures (string figure, string color)
+    public Message switchFigures (string figure, coord position)
     {
+      string color = getFieldFigureColor (position);
+      if (figure.ToLower() == "knight") {
+        figure = "night";
+      }
+      if (figure != "") {
+        this.fields [position.x, position.y] = figureLookup (figure [0]);
+        this.fields [position.x, position.y].color = color;
+      }
+      return new Message (false, "", "", "");
       
     }
 

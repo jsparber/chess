@@ -3,7 +3,7 @@ using Gtk;
 
 namespace Chess
 {
-  public delegate bool Cb(coord start, coord end);
+  public delegate bool Cb (coord start, coord end);
   public class Graphics : Gtk.Window
   {
     private GridWidget mainGrid;
@@ -12,6 +12,7 @@ namespace Chess
     private Popup chooser;
     private Label status;
     private Game game;
+
     public Graphics (Game g) : base (Gtk.WindowType.Toplevel)
     {
       Build ();
@@ -19,9 +20,9 @@ namespace Chess
       VBox gridWrapper = new VBox ();
       HBox box = new HBox ();
       this.status = new Label ("");
-      this.chooser = new Popup (g.board.getChooseableFigure(), handleChooser);
+      this.chooser = new Popup (g.board.getChooseableFigure (), handleChooser);
       this.mainGrid = new GridWidget (g.board, clickHandler);
-      gridWrapper.PackStart (status , false, false, 0);
+      gridWrapper.PackStart (status, false, false, 0);
       gridWrapper.PackStart (this.mainGrid, false, false, 0);
       this.sidebarLeft = new SidebarWidget (g.getRemovedFigures (), "black");
       box.PackStart (new HBox ());
@@ -32,24 +33,23 @@ namespace Chess
       box.PackStart (new HBox ());
       box.ShowAll ();
       this.Add (box);
-      updateGui(new Message(false, "", "", "white"));
+      updateGui (new Message (false, "", "", "black"));
     }
 
-    public void updateGui(Message msg) {
+    public void updateGui (Message msg)
+    {
       this.sidebarLeft.updateSidebar ();
       this.sidebarRight.updateSidebar ();
       this.mainGrid.updateGrid ();
-      if (msg.format() != "")
+      if (msg.format () != "")
         this.status.Text = msg.format ();
-      //this.chooser.open (msg.player, new coord(0, 0));
-      if (msg.action == "chooser") {
-      }
       msg.print ();
    
     }
 
-    public void handleChooser(string figure, string color) {
-      this.game.switchFigures (figure, color);
+    public void handleChooser (string figure, coord position)
+    {
+      updateGui (this.game.board.switchFigures (figure, position));
     }
 
     protected void OnDeleteEvent (object sender, DeleteEventArgs a)
@@ -77,10 +77,13 @@ namespace Chess
     public bool clickHandler (coord start, coord end)
     {
       Message msg;
-      if (start.Equals(end)) {
+      if (start.Equals (end)) {
         msg = this.game.Move (start);
       } else {
         msg = this.game.Move (start, end);
+        if (msg.action == "chooser") {
+          this.chooser.open (msg.player, end);
+        }
         updateGui (msg);
       }
       return !msg.error;

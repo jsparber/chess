@@ -23,15 +23,15 @@ namespace Chess
     }
 
     public string format () {
-      string returnMsg = "It's " + this.player + "'s turn.";
+      string opPlayer = (this.player == "white") ? "black" : "white";
+      string returnMsg = "It's " + opPlayer + "'s turn.";
 
       switch (this.msg) {
       case "check":
-        returnMsg += " | " + this.player + " is in check";
+        returnMsg += " | " + opPlayer + " is in check";
         break;
       case "checkmate":
-        string opColor = (player == "white") ? "black" : "white";
-        returnMsg = this.player + " is checkmate | " + opColor + " wins";
+        returnMsg = opPlayer + " is checkmate | " + this.player + " wins";
         break;
       }
       return returnMsg;

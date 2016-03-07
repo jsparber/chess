@@ -7,8 +7,8 @@ namespace Chess
   {
     private HBox box;
     private Figure[] figures;
-    private Action<string, string> callback;
-    public Popup (Figure[] f, Action<string, string> callback) : base (Gtk.WindowType.Toplevel)
+    private Action<string, coord> callback;
+    public Popup (Figure[] f, Action<string, coord> callback) : base (Gtk.WindowType.Toplevel)
     {
       this.callback = callback;
       this.Title = "chooser";
@@ -21,7 +21,7 @@ namespace Chess
     }
 
     public void open(string color, coord position) {
-     this.close ();
+     close ();
      foreach (Figure fig in this.figures) {
         TileWidget tile = new TileWidget ("", fig.GetType ().Name, color , new coord (100, 100));
         tile.position = position;
@@ -32,7 +32,7 @@ namespace Chess
       this.Show ();
     }
 
-    public void close() {
+    private void close() {
       foreach (Widget child in this.box.Children) {
         child.Destroy ();
       }
@@ -43,8 +43,8 @@ namespace Chess
     {
       TileWidget tile = (TileWidget)obj;
       Console.WriteLine ("Clicled");
+      this.callback (tile.figure, tile.position);
       close();
-      this.callback (tile.figure, tile.color);
     }
   }
 }

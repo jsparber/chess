@@ -17,20 +17,15 @@ namespace Chess
 
     public Message Move(coord start, coord end) {
       Message msg = this.board.Move (this.currentPlayer, start, end);
+      msg.player = this.currentPlayer;
       if (!msg.error) {
         tooglePlayer ();
       }
-      msg.player = this.currentPlayer;
       return msg;
     }
 
     public Message Move(coord start) {
       return new Message(this.board.getFieldFigureName(start) == "Empty" || this.board.getFieldFigureColor(start) != this.currentPlayer, "firstClick", "", this.currentPlayer);
-    }
-
-    public void switchFigures (string figure, string color)
-    {
-      board.switchFigures (figure, color);
     }
 
     private void tooglePlayer() {
