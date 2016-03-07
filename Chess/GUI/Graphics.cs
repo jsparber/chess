@@ -11,11 +11,8 @@ namespace Chess
     private Label status;
     public Graphics (Game g) : base (Gtk.WindowType.Toplevel)
     {
-      //MainWindow win = new MainWindow ();
       VBox gridWrapper = new VBox ();
       HBox box = new HBox ();
-      //win.Resize (800, 800);
-      //win.Decorated = false;
       this.status = new Label ("");
       this.mainGrid = new GridWidget (g, this);
       gridWrapper.PackStart (status , false, false, 0);
