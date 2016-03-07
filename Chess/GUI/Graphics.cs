@@ -27,6 +27,7 @@ namespace Chess
       box.ShowAll ();
       this.Add (box);
       updateGui(new Message(false, "", "", "white"));
+      //new Popup (g.board.getChooseableFigure("white"));
       Build ();
     }
 

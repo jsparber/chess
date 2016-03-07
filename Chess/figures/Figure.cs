@@ -27,11 +27,6 @@ namespace Chess
     {
       return true;
     }
-    /* Method for checking the movement.If the movement is not possible */
-    public virtual bool checkMove (Board board, coord start, coord end)
-    {
-      return true;
-    }
   }
 }
 

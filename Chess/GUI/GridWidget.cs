@@ -32,8 +32,8 @@ namespace Chess
       for (int x = 0; x < this.game.getSize ().x; x++) {
         tileBackground = (tileBackground == "white") ? "gray" : "white";
         for (int y = 0; y < this.game.getSize ().y; y++) {
-          string type = this.game.getFieldName (new coord (x, y));
-          string playerColor = this.game.getFieldColor (new coord (x, y));
+          string type = this.game.board.getFieldFigureName (new coord (x, y));
+          string playerColor = this.game.board.getFieldFigureColor (new coord (x, y));
           tileBackground = (tileBackground == "white") ? "gray" : "white";
 
           type = (type == "Empty") ? "" : type;

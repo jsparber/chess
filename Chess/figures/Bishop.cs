@@ -14,7 +14,7 @@ namespace Chess
       if (Math.Abs (start.x - end.x) == Math.Abs (start.y - end.y)) {
           coord tmp = start;
           while (!tmp.Equals (end)) {
-          if (board.getFieldFigure (tmp) != "Empty" && !tmp.Equals(start))
+          if (board.getFieldFigureName (tmp) != "Empty" && !tmp.Equals(start))
               return false;
             if (tmp.x > end.x && tmp.y > end.y) {
               tmp.x--;

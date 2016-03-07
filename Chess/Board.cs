@@ -66,7 +66,7 @@ namespace Chess
     }
 
     //create the choose array
-    public Figure[] getChooser (string player) {
+    public Figure[] getChooseableFigure (string player) {
       Figure[] chooseableFigures = new Figure[chooseLayout.Length];
       for  (int i = 0; i < chooseLayout.Length; i++) {
         chooseableFigures[i] = figureLookup (chooseLayout [i]);
@@ -132,23 +132,23 @@ namespace Chess
             result.msg = "checkmate";
           }
         }
-        if (this.getFieldFigure (end) == "Pawn") {
+        if (this.getFieldFigureName (end) == "Pawn") {
           ((Pawn)this.fields [end.x, end.y]).justMoved = true;
         }
 
         //remove all justMoved
         for (int x = 0; x < this.size.x; x++) {
           for (int y = 0; y < this.size.y; y++) {
-            if (this.fields [x, y].color == color && getFieldFigure (new coord (x, y)) == "Pawn") {
+            if (this.fields [x, y].color == color && getFieldFigureName (new coord (x, y)) == "Pawn") {
               ((Pawn)this.fields [x, y]).justMoved = false;
             }
           }
         }
         //set moved Pawn's justMoved to true;
-        if (this.getFieldFigure (end) == "Pawn" && (start.y + 2 == end.y || start.y - 2 == end.y)) {
+        if (this.getFieldFigureName (end) == "Pawn" && (start.y + 2 == end.y || start.y - 2 == end.y)) {
           ((Pawn)this.fields [end.x, end.y]).justMoved = true;
         }
-        if (this.getFieldFigure (end) == "Pawn" && (end.y == 0 || end.y == 7)) {
+        if (this.getFieldFigureName (end) == "Pawn" && (end.y == 0 || end.y == 7)) {
           result.action = "chooser";
         }
         this.fields [end.x, end.y].hasMoved = true;
@@ -184,7 +184,7 @@ namespace Chess
       }
       for (int x = 0; x < this.size.x; x++) {
         for (int y = 0; y < this.size.y; y++) {
-          if (this.fields [x, y].color == player && getFieldFigure (new coord (x, y)) == "King") {
+          if (this.fields [x, y].color == player && getFieldFigureName (new coord (x, y)) == "King") {
             king = new coord (x, y);
             noKing = false;
           }
@@ -238,7 +238,7 @@ namespace Chess
     //special moves castling
     private bool doCastling (string player, coord start, coord end)
     {
-      if (this.getFieldFigure (start) == "King" && this.fields [start.x, start.y].color == player && this.fields [start.x, start.y].hasMoved == false) {
+      if (this.getFieldFigureName (start) == "King" && this.fields [start.x, start.y].color == player && this.fields [start.x, start.y].hasMoved == false) {
         if (start.x == end.x + 2 && start.x > end.x && !Move (player, start, new coord (start.x - 1, start.y)).error) {
           if (!Move (player, new coord (start.x - 1, start.y), end).error) {
             Figure tmpPosition = this.fields [end.x, end.y];
@@ -287,13 +287,13 @@ namespace Chess
       } else {
         direction = -1;
       }
-      if (this.getFieldFigure (start) == "Pawn" &&
+      if (this.getFieldFigureName (start) == "Pawn" &&
         this.fields [start.x, start.y].color == player &&
           (start.x + 1 == end.x || start.x - 1 == end.x) &&
           start.y + direction == end.y &&
-          this.getFieldFigure(end.x, start.y) == "Pawn" &&
+          this.getFieldFigureName(end.x, start.y) == "Pawn" &&
           ((Pawn)this.fields [end.x, start.y]).justMoved &&
-          (this.getFieldFigure (end.x, end.y) == "Empty")) {
+          (this.getFieldFigureName (end.x, end.y) == "Empty")) {
         //do move;
         this.removedFigures.Add (this.fields [end.x, end.y - direction]);
         this.fields [end.x, end.y - direction] = new Empty ();
@@ -305,14 +305,22 @@ namespace Chess
       return false;
     }
 
-    public string getFieldFigure (coord c)
+    public string getFieldFigureName (coord c)
     {
-      return this.fields [c.x, c.y].GetType ().Name;
+      return getField (c).GetType ().Name;
     }
 
-    public string getFieldFigure (int x, int y)
+    public string getFieldFigureName (int x, int y)
     {
-      return this.fields [x, y].GetType ().Name;
+      return getFieldFigureName (new coord (x, y));
+    }
+
+    public string getFieldFigureColor(coord c) {
+      return getField(c).color;
+    }
+
+    public Figure getField(coord c) {
+      return this.fields [c.x, c.y];
     }
 
   }

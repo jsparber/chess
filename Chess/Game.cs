@@ -6,7 +6,7 @@ namespace Chess
 	public class Game
 	{
  
-    private Board board;
+    public Board board { get; }
     private string currentPlayer { get; set; }
 
     public Game ()
@@ -15,31 +15,6 @@ namespace Chess
       this.currentPlayer = "white";
 		}
     
-    public string getFieldName(coord c) {
-      return getField (c).GetType ().Name;
-    }
-    public string getFieldColor(coord c) {
-      return getField(c).color;
-    }
-    public Figure getField(coord c) {
-      return this.board.fields [c.x, c.y];
-    }
- 
-    //prints the board to the log used for debuging
-    public string printBoard () {
-      string output = "";
-      for (int x = 0; x < 8; x++) {
-        for (int y = 0; y < 8; y++) {
-          output += getFieldName (new coord (x, y));
-        }
-        output += "\n";
-      }
-      return output;
-    }
-
-    public Board getBoard() {
-      return this.board;
-    }
 
     public coord getSize() {
       return this.board.size;
@@ -55,7 +30,7 @@ namespace Chess
     }
 
     public Message Move(coord start) {
-      return new Message(this.getFieldName(start) == "Empty", "firstClick", "", "");
+      return new Message(this.board.getFieldFigureName(start) == "Empty", "firstClick", "", "");
     }
 
     private void tooglePlayer() {

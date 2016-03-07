@@ -31,16 +31,16 @@ namespace Chess
       if (!this.hasMoved &&
           start.x == end.x &&
           start.y + (2 * direction) == end.y &&
-          board.getFieldFigure (start.x, start.y + direction) == "Empty" &&
-          board.getFieldFigure (start.x, start.y + (2 * direction)) == "Empty")
+          board.getFieldFigureName (start.x, start.y + direction) == "Empty" &&
+          board.getFieldFigureName (start.x, start.y + (2 * direction)) == "Empty")
         return true;
       if (start.x == end.x &&
           start.y + direction == end.y &&
-          board.getFieldFigure (start.x, start.y + direction) == "Empty")
+          board.getFieldFigureName (start.x, start.y + direction) == "Empty")
         return true;
       if ((start.x + 1 == end.x || start.x - 1 == end.x) &&
           start.y + direction == end.y &&
-          board.getFieldFigure (end) != "Empty") {
+          board.getFieldFigureName (end) != "Empty") {
         return true;
       }
 

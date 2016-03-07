@@ -16,13 +16,13 @@ namespace Chess
       if (start.x == end.x) {
         if (start.y < end.y) {
           for (int i = start.y + 1; i < end.y; i++) {  
-            if (board.getFieldFigure (start.x, i) != "Empty") {
+            if (board.getFieldFigureName (start.x, i) != "Empty") {
               return false;
             }
           }
         } else {
           for (int i = start.y - 1; i > end.y; i--) {  
-            if (board.getFieldFigure (start.x, i) != "Empty") {
+            if (board.getFieldFigureName (start.x, i) != "Empty") {
               return false;
             }
           }
@@ -31,13 +31,13 @@ namespace Chess
       } else if (start.y == end.y) {
         if (start.x < end.x) {
           for (int i = start.x + 1; i < end.x; i++) {  
-            if (board.getFieldFigure (i, start.y) != "Empty") {
+            if (board.getFieldFigureName (i, start.y) != "Empty") {
               return false;
             }
           }
         } else {
           for (int i = start.x - 1; i > end.x; i--) {  
-            if (board.getFieldFigure (i, start.y) != "Empty") {
+            if (board.getFieldFigureName (i, start.y) != "Empty") {
               return false;
             }
           }
