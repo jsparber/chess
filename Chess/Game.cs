@@ -19,7 +19,7 @@ namespace Chess
       return getField (c).GetType ().Name;
     }
     public string getFieldColor(coord c) {
-      return getField(c).getColor;
+      return getField(c).color;
     }
     public Figure getField(coord c) {
       return this.board.fields [c.x, c.y];
@@ -55,7 +55,7 @@ namespace Chess
     }
 
     public Message Move(coord start) {
-      return new Message(this.getFieldName(start) == "Empty", "emptyClick");
+      return new Message(this.getFieldName(start) == "Empty", "firstClick", "", "");
     }
 
     private void tooglePlayer() {

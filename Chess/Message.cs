@@ -7,19 +7,14 @@ namespace Chess
     public bool error { get; set;}
     public string msg { get; set;}
     public string player { get; set;}
+    public string action { get; set;}
 
-    public Message (bool error, string msg)
-    {
-      this.error = error;
-      this.msg = msg;
-      this.player = "";
-    }
-
-    public Message (bool error, string msg, string player)
+    public Message (bool error, string msg, string action, string player)
     {
       this.error = error;
       this.msg = msg;
       this.player = player;
+      this.action = action;
     }
 
     public void print ()

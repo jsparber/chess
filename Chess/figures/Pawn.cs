@@ -23,7 +23,7 @@ namespace Chess
       /* If the color is white we have an increment of y 
        * if the color is black we have a decrement of y. */
 
-      if (this.Color == "white") {
+      if (this.color == "white") {
         direction = 1;
       } else {
         direction = -1;

@@ -24,8 +24,8 @@ namespace Chess
         child.Destroy ();
       }
       foreach (Figure f in removedFigures) {
-        if (f.getColor == this.color) {
-          this.PackStart (new TileWidget ("", f.GetType ().Name, f.getColor, new coord (50, 50)), false, false, 0);
+        if (f.color == this.color) {
+          this.PackStart (new TileWidget ("", f.GetType ().Name, f.color, new coord (50, 50)), false, false, 0);
         }
       }
       this.ShowAll ();

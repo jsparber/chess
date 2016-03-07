@@ -47,10 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
-    <Compile Include="MainWindow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="gtk-gui\MainWindow.cs" />
     <Compile Include="figures\King.cs" />
     <Compile Include="figures\Figure.cs" />
     <Compile Include="Game.cs" />
@@ -61,12 +59,13 @@
     <Compile Include="figures\Empty.cs" />
     <Compile Include="coord.cs" />
     <Compile Include="Board.cs" />
-    <Compile Include="GridWidget.cs" />
-    <Compile Include="Graphics.cs" />
-    <Compile Include="TileWidget.cs" />
-    <Compile Include="SidebarWidget.cs" />
     <Compile Include="figures\Pawn.cs" />
     <Compile Include="Message.cs" />
+    <Compile Include="GUI\Graphics.cs" />
+    <Compile Include="GUI\GridWidget.cs" />
+    <Compile Include="GUI\SidebarWidget.cs" />
+    <Compile Include="GUI\TileWidget.cs" />
+    <Compile Include="GUI\Popup.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -82,6 +81,7 @@
   </ProjectExtensions>
   <ItemGroup>
     <Folder Include="figures\" />
+    <Folder Include="GUI\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="img\circle.svg" />
