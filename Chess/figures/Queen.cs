@@ -2,12 +2,13 @@ using System;
 
 namespace Chess
 {
+  /* Class for the queen figure */
   public class Queen : Figure
   {
+    /* Constructor of the object queen */
     public Queen (string color) : base (color)
     {
     }
-
 
     public override bool move (Board board, coord start, coord end)
     {
@@ -70,9 +71,6 @@ namespace Chess
         return true;
       }  
       return false;
-
     }
   }
-
 }
-

@@ -2,9 +2,11 @@ using System;
 
 namespace Chess
 {
+  /* Class for the knight figure */
   public class Knight : Figure
   {
 
+    /* Constructor of the object knight */
     public Knight (string color) : base (color)
     {
       this.rule = new coord (1, 2);
@@ -44,6 +46,4 @@ namespace Chess
       return false;
     }
   }
-
 }
-

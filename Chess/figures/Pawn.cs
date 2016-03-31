@@ -2,7 +2,7 @@ using System;
 
 namespace Chess
 {
-  public class Pawn : Figure
+  public class Pawn : Figure      
   {
     public bool justMoved { get; set; }
 
@@ -14,15 +14,12 @@ namespace Chess
       justMoved = false;
     }
 
-
-    /* returns true if the movement is permitted else false */
+    /* returns true if the movement is permitted,else return false */
     public override bool move (Board board, coord start, coord end)
     {
       int direction;
 
-      /* If the color is white we have an increment of y 
-       * if the color is black we have a decrement of y. */
-
+      /* If the color is white we have an increment of y,else a decrement */
       if (this.color == "white") {
         direction = 1;
       } else {

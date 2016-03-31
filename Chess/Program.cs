@@ -9,12 +9,10 @@ namespace Chess
     {
       Application.Init ();
 
-      //creates the game
-      Game g = new Game ();
+      Game g = new Game ();      /* Creates a new game */     
+   
+      new Graphics (g);          /* Creates the graphic interface for the game (g) [ Graphics gui = new Graphics (g); ]*/
 
-      //creates the gui for the Game g
-      //Graphics gui = new Graphics (g);
-      new Graphics (g);
       Application.Run ();
      
     }

@@ -129,7 +129,6 @@ namespace Chess
       return result;
     }
 
-
     public Message Move (Player player, coord start, coord end)
     {
         Message result = new Message (false, "", "", player);
@@ -163,6 +162,7 @@ namespace Chess
             }
           }
         }
+
         //set moved Pawn's justMoved to true;
         if (this.getFieldFigureName (end) == "Pawn" && (start.y + 2 == end.y || start.y - 2 == end.y)) {
           ((Pawn)this.fields [end.x, end.y]).justMoved = true;
@@ -291,12 +291,10 @@ namespace Chess
             this.fields [start.x, start.y].hasMoved = false;
             this.fields [start.x + 1, start.y] = new Empty ();
           }
-
         }
       }
       return false;
     }
-
 
     private bool doEnPassant (Player player, coord start, coord end)
     {
@@ -344,7 +342,5 @@ namespace Chess
     public coord getSize() {
       return this.size;
     }
-
   }
 }
-
