@@ -8,22 +8,23 @@ namespace Chess
     private HBox box;
     private Figure[] figures;
     private Action<string, coord> callback;
-    public Popup (Figure[] f, Action<string, coord> callback) : base (Gtk.WindowType.Toplevel)
+    private coord tileSize;
+
+    public Popup (Figure[] f, Action<string, coord> callback, int scale) : base (Gtk.WindowType.Toplevel)
     {
       this.callback = callback;
       this.Title = "chooser";
       this.figures = f;
       this.Decorated = true;
-      this.DefaultHeight = 100;
-      this.DefaultWidth = 100;
       this.box = new HBox ();
       this.Add (this.box);
+      this.tileSize = new coord (10 * scale, 10 * scale);
     }
 
     public void open(Player player, coord position) {
      close ();
      foreach (Figure fig in this.figures) {
-        TileWidget tile = new TileWidget ("", fig.GetType ().Name, player.ToString() , new coord (100, 100));
+        TileWidget tile = new TileWidget ("", fig.GetType ().Name, player.ToString() , this.tileSize);
         tile.position = position;
         box.PackStart (tile);
         tile.ButtonPressEvent += onTileClicked;

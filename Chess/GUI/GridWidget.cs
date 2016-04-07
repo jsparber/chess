@@ -8,16 +8,16 @@ namespace Chess
     //public delegate bool Cb(coord start, coord end);
     private Board board;
     private Cb callback;
-
     private coord clickedPosition;
-
     private bool clicked;
+    private coord tileSize;
 
-    public GridWidget (Board board, Cb callback) : base ((uint)board.getSize ().x, (uint)board.getSize ().y, true)
+    public GridWidget (Board board, Cb callback, int scale) : base ((uint)board.getSize ().x, (uint)board.getSize ().y, true)
     {
       this.callback = callback;
       this.clicked = false;
       this.board = board;
+      this.tileSize = new coord (10 * scale, 10 * scale);
     }
 
     private void addFigure (Widget w, coord pos)
@@ -37,7 +37,7 @@ namespace Chess
           tileBackground = (tileBackground == "white") ? "gray" : "white";
 
           type = (type == "Empty") ? "" : type;
-          TileWidget tile = new TileWidget (tileBackground, type, playerColor, new coord (100, 100));
+          TileWidget tile = new TileWidget (tileBackground, type, playerColor, this.tileSize);
           tile.position = new coord (x, y);
           tile.ButtonPressEvent += onTileClicked;
           this.addFigure (tile, new coord (x, y));
@@ -65,7 +65,7 @@ namespace Chess
 
         if (this.callback (this.clickedPosition, this.clickedPosition)) {
           this.clicked = true;
-          Image circle = tile.loadCircle (new coord (100, 100));
+          Image circle = tile.loadCircle (this.tileSize);
           Fixed f = (Fixed)(tile.Child);
           f.Add (circle);
           f.ShowAll ();

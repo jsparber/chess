@@ -8,14 +8,17 @@ namespace Chess
   {
     private List<Figure> removedFigures;
     private string color;
-    public SidebarWidget (List<Figure> removedFigures, string color)
+    private coord tileSize;
+
+    public SidebarWidget (List<Figure> removedFigures, string color, int scale)
     {
       this.removedFigures = removedFigures;
       this.color = color;
 
       updateSidebar ();
 
-      this.WidthRequest = 50;
+      this.WidthRequest = 5 * scale;
+      this.tileSize = new coord (5 * scale, 5 * scale);
     }
 
     public void updateSidebar ()
@@ -25,7 +28,7 @@ namespace Chess
       }
       foreach (Figure f in removedFigures) {
         if (f.color == this.color) {
-          this.PackStart (new TileWidget ("", f.GetType ().Name, f.color, new coord (50, 50)), false, false, 0);
+          this.PackStart (new TileWidget ("", f.GetType ().Name, f.color, this.tileSize), false, false, 0);
         }
       }
       this.ShowAll ();

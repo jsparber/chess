@@ -16,24 +16,26 @@ namespace Chess
     public Graphics (Game g) : base (Gtk.WindowType.Toplevel)
     {
       Build ();
+      int scale = 10;
       this.game = g;
       VBox gridWrapper = new VBox ();
       HBox box = new HBox ();
       this.status = new Label ("");
-      this.chooser = new Popup (g.board.getChooseableFigure (), handleChooser);
-      this.mainGrid = new GridWidget (g.board, clickHandler);
+      this.chooser = new Popup (g.board.getChooseableFigure (), handleChooser, scale);
+      this.mainGrid = new GridWidget (g.board, clickHandler, scale);
       gridWrapper.PackStart (status, false, false, 0);
       gridWrapper.PackStart (this.mainGrid, false, false, 0);
-      this.sidebarLeft = new SidebarWidget (g.getRemovedFigures (), "black");
+      this.sidebarLeft = new SidebarWidget (g.getRemovedFigures (), "black", scale);
       box.PackStart (new HBox ());
       box.PackStart (this.sidebarLeft);
       box.PackStart (gridWrapper, false, false, 0);
-      this.sidebarRight = new SidebarWidget (g.getRemovedFigures (), "white");
+      this.sidebarRight = new SidebarWidget (g.getRemovedFigures (), "white", scale);
       box.PackEnd (this.sidebarRight);
       box.PackStart (new HBox ());
       box.ShowAll ();
       this.Add (box);
       updateGui (this.game.initialState ());
+      this.Show ();
     }
 
     public void updateGui (Message msg)
@@ -64,13 +66,10 @@ namespace Chess
       // Widget Chess.MainWindow
       this.Name = "Chess.MainWindow";
       this.Title = global::Mono.Unix.Catalog.GetString ("Chess");
-      this.WindowPosition = ((global::Gtk.WindowPosition)(4));
+      this.WindowPosition = ((global::Gtk.WindowPosition)(3));
       if ((this.Child != null)) {
         this.Child.ShowAll ();
       }
-      this.DefaultWidth = 800;
-      this.DefaultHeight = 800;
-      this.Show ();
       this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
     }
 

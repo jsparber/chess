@@ -9,7 +9,7 @@ namespace Chess
     //game start layout of the board
     //lower case is black
     //X or any char differnt than rnbqkp is considered empty
-    /*const string layout = "RNBKQBNR\n" +
+    const string layout = "RNBKQBNR\n" +
                           "PPPPPPPP\n" +
                           "XXXXXXXX\n" +
                           "XXXXXXXX\n" +
@@ -17,16 +17,7 @@ namespace Chess
                           "XXXXXXXX\n" +
                           "pppppppp\n" +
                           "rnbkqbnr";
-*/
     const string chooseLayout = "RNBQ";
-    const string layout = "RXXKXXXR\n" +
-                          "xxxxxpxx\n" +
-                          "XXXXXXXX\n" +
-                          "XXXXXXXX\n" +
-                          "XXXXXXXX\n" +
-                          "XXXXXXXX\n" +
-                          "xxxxxxPx\n" +
-                          "rxxkxxxr";
     public Figure[,] fields { get; set; }
 
     public coord size { get; set; }
