@@ -17,6 +17,8 @@ namespace Chess
     {
       Build ();
       int scale = 10;
+      if (Screen.Height < 1000)
+        scale = 5;
       this.game = g;
       VBox gridWrapper = new VBox ();
       HBox box = new HBox ();
