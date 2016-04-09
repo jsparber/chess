@@ -45,7 +45,7 @@ namespace Chess
       this.sidebarLeft.updateSidebar ();
       this.sidebarRight.updateSidebar ();
       this.mainGrid.updateGrid ();
-      if (msg.format () != "")
+      if (msg.error == false && msg.format () != "")
         this.status.Text = msg.format ();
       msg.print ();
    
