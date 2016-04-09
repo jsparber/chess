@@ -23,7 +23,7 @@ namespace Chess
       VBox gridWrapper = new VBox ();
       HBox box = new HBox ();
       this.status = new Label ("");
-      this.chooser = new Popup (g.board.getChooseableFigure (), handleChooser, scale);
+      this.chooser = new Popup (this, g.board.getChooseableFigure (), handleChooser, scale);
       this.mainGrid = new GridWidget (g.board, clickHandler, scale);
       gridWrapper.PackStart (status, false, false, 0);
       gridWrapper.PackStart (this.mainGrid, false, false, 0);

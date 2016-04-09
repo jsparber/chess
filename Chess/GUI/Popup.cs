@@ -10,12 +10,14 @@ namespace Chess
     private Action<string, coord> callback;
     private coord tileSize;
 
-    public Popup (Figure[] f, Action<string, coord> callback, int scale) : base (Gtk.WindowType.Toplevel)
+    public Popup (Window parent, Figure[] f, Action<string, coord> callback, int scale) : base (Gtk.WindowType.Toplevel)
     {
+      this.TransientFor = parent;
+      this.SetPosition(Gtk.WindowPosition.CenterOnParent);
       this.callback = callback;
-      this.Title = "chooser";
+      this.Title = "choose";
       this.figures = f;
-      this.Decorated = true;
+      this.Decorated = false;
       this.box = new HBox ();
       this.Add (this.box);
       this.tileSize = new coord (10 * scale, 10 * scale);
