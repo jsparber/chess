@@ -22,16 +22,11 @@ namespace Chess
           imgName = color.ToLower () [0].ToString () + "N";
         }
         Image img = loadSvg(imgName, size);
-        //should draw the circle with cario but I cann't add it do the Fixed elemend
-        //CairoGraphic g =  new CairoGraphic();
-        //g.ModifyBg(StateType.Normal, col);
         Fixed f = new Fixed ();
-        //f.Add (circle);
         f.Add (img);
         f.ShowAll();
         this.Add(f);
-        //this.Add(img);
-        this.ShowAll ();
+        this.Show ();
       }
       if (colorBg != "") {
         Gdk.Color col = new Gdk.Color ();

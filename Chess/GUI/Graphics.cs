@@ -51,10 +51,6 @@ namespace Chess
    
     }
 
-    public void handleChooser (string figure, coord position)
-    {
-      updateGui (this.game.board.switchFigures (figure, position));
-    }
 
     protected void OnDeleteEvent (object sender, DeleteEventArgs a)
     {
@@ -89,6 +85,12 @@ namespace Chess
       }
       return !msg.error;
     }
+
+    public void handleChooser (string figure, coord position)
+    {
+      updateGui (this.game.board.switchFigures (figure, position));
+    }
+
   }
 }
 

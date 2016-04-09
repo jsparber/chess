@@ -65,15 +65,18 @@ namespace Chess
 
         if (this.callback (this.clickedPosition, this.clickedPosition)) {
           this.clicked = true;
-          Image circle = tile.loadCircle (this.tileSize);
           Fixed f = (Fixed)(tile.Child);
+          Image circle = tile.loadCircle (this.tileSize);
           f.Add (circle);
           f.ShowAll ();
         }
       } else {
-        this.callback (this.clickedPosition, tile.position);
-        if (this.clickedPosition.Equals (tile.position)) {
-          updateGrid ();
+        //remove the ring whenn the user clicks agen on the same tile
+        if (this.callback (this.clickedPosition, tile.position) &&  
+            this.clickedPosition.Equals (tile.position)) {
+          Fixed f = (Fixed)(tile.Child);
+          if (f.Children.Length > 1)
+            f.Remove (f.Children [1]);
         }
         this.clicked = false;
       }
