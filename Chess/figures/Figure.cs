@@ -5,10 +5,7 @@ namespace Chess
   public class Figure
   {
     public string color { get; set; }   /* String for the color of figures */
-
     public bool hasMoved { get; set; }  /* Flag for checking if the figure has moved */
-
-    public coord rule { get; set; }
 
     public Figure (string color)
     {
@@ -26,6 +23,10 @@ namespace Chess
     public virtual bool move (Board board, coord start, coord end)
     {
       return true;
+    }
+
+    public string name () {
+      return this.GetType().Name;
     }
   }
 }

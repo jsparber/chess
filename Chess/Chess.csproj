@@ -65,6 +65,7 @@
     <Compile Include="GUI\TileWidget.cs" />
     <Compile Include="GUI\Popup.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="Payload.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

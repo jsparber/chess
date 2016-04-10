@@ -7,35 +7,38 @@ namespace Chess
   {
     private HBox box;
     private Figure[] figures;
-    private Action<string, coord> callback;
+    private Action<Figure, coord> callback;
     private coord tileSize;
 
-    public Popup (Window parent, Figure[] f, Action<string, coord> callback, int scale) : base (Gtk.WindowType.Toplevel)
+    public Popup (Window parent, Figure[] f, Action<Figure, coord> callback, int scale) : base (Gtk.WindowType.Toplevel)
     {
       this.TransientFor = parent;
-      this.SetPosition(Gtk.WindowPosition.CenterOnParent);
+      this.SetPosition (Gtk.WindowPosition.CenterOnParent);
+      this.Decorated = false;
+
+      this.tileSize = new coord (10 * scale, 10 * scale);
       this.callback = callback;
       this.Title = "choose";
       this.figures = f;
-      this.Decorated = false;
       this.box = new HBox ();
       this.Add (this.box);
-      this.tileSize = new coord (10 * scale, 10 * scale);
     }
 
-    public void open(Player player, coord position) {
-     close ();
-     foreach (Figure fig in this.figures) {
-        TileWidget tile = new TileWidget ("", fig.GetType ().Name, player.ToString() , this.tileSize);
+    public void open (Player player, coord position)
+    {
+      close ();
+      foreach (Figure fig in this.figures) {
+        TileWidget tile = new TileWidget ("", fig.name (), player.ToString (), this.tileSize);
         tile.position = position;
+        fig.color = player.ToString ();
         box.PackStart (tile);
         tile.ButtonPressEvent += onTileClicked;
       }
       this.ShowAll ();
-      this.Show ();
     }
 
-    private void close() {
+    private void close ()
+    {
       foreach (Widget child in this.box.Children) {
         child.Destroy ();
       }
@@ -45,9 +48,14 @@ namespace Chess
     private void onTileClicked (object obj, ButtonPressEventArgs args)
     {
       TileWidget tile = (TileWidget)obj;
-      Console.WriteLine ("Clicled");
-      this.callback (tile.figure, tile.position);
-      close();
+      bool found = false;
+      for (int i = 0; i < ((HBox)tile.Parent).Children.Length && !found; i++) {
+        if (((HBox)tile.Parent).Children [i].Equals (tile)) {
+          found = true;
+          this.callback (this.figures [i], tile.position);
+        }
+      }
+      close ();
     }
   }
 }

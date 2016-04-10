@@ -23,8 +23,8 @@ namespace Chess
       VBox gridWrapper = new VBox ();
       HBox box = new HBox ();
       this.status = new Label ("");
-      this.chooser = new Popup (this, g.board.getChooseableFigure (), handleChooser, scale);
-      this.mainGrid = new GridWidget (g.board, clickHandler, scale);
+      this.chooser = new Popup (this, this.game.getChooseableFigures(), handleChooser, scale);
+      this.mainGrid = new GridWidget (this.game, clickHandler, scale);
       gridWrapper.PackStart (status, false, false, 0);
       gridWrapper.PackStart (this.mainGrid, false, false, 0);
       this.sidebarLeft = new SidebarWidget (g.getRemovedFigures (), "black", scale);
@@ -75,9 +75,9 @@ namespace Chess
     {
       Message msg;
       if (start.Equals (end)) {
-        msg = this.game.Move (start);
+        msg = this.game.call(new Payload (false, "checkSelection", start));
       } else {
-        msg = this.game.Move (start, end);
+        msg = this.game.call(new Payload(false, "move", start, end));
         if (msg.action == "chooser") {
           this.chooser.open (msg.player, end);
         }
@@ -86,9 +86,9 @@ namespace Chess
       return !msg.error;
     }
 
-    public void handleChooser (string figure, coord position)
+    public void handleChooser (Figure figure, coord position)
     {
-      updateGui (this.game.board.switchFigures (figure, position));
+      updateGui (this.game.call (new Payload (false, "switchFigures", figure, position)));
     }
 
   }

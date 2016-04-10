@@ -6,7 +6,7 @@ namespace Chess
   public class Game
   {
  
-    public Board board { get; }
+    private Board board;
 
     private Player player;
 
@@ -16,24 +16,51 @@ namespace Chess
       this.player = new Player ("white");
     }
 
-    public Message Move (coord start, coord end)
-    {
-      Message msg = this.board.Move (this.player, start, end);
-      msg.player = this.player;
-      if (!msg.error) {
-        this.player = this.player.next ();
+    //interaction function for the user interface to the game
+    public Message call (Payload data) {
+      Message result = new Message (false, "", "", null);
+      if (!data.error) {
+        switch (data.action) {
+        case "switchFigures": 
+          result = this.board.switchFigures (data.figure, data.startPos);
+          break;
+        case "move":
+          //need to block the game whenn waiting for click on the chooser
+          result = this.board.Move (this.player, data.startPos, data.endPos);
+          if (!result.error) {
+            this.player = this.player.next ();
+          }
+          break;
+        case "checkSelection":
+          result = this.board.Move (this.player, data.startPos);
+          break;
+        }
       }
-      return msg;
+      return result; 
     }
 
-    public Message Move (coord start)
-    {
-      return new Message (this.board.getFieldFigureName (start) == "Empty" || this.board.getFieldFigureColor (start) != this.player.ToString(), "firstClick", "", this.player);
+    public Figure[] getChooseableFigures() {
+      return this.board.chooseableFigures;
     }
+
+    public coord getSize() {
+      return this.board.size;
+    }
+
 
     public List<Figure> getRemovedFigures ()
     {
       return this.board.removedFigures;
+    }
+
+    public string getFieldFigureName (coord coord)
+    {
+      return this.board.getFieldFigureName (coord);
+    }
+
+    public string getFieldFigureColor (coord coord)
+    {
+      return this.board.getFieldFigureColor (coord);
     }
 
     public Message initialState() {

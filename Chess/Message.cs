@@ -17,12 +17,12 @@ namespace Chess
       this.action = action;
     }
 
-    public void print ()
+    public virtual void print ()
     {
       Console.WriteLine ("Error: " + this.error.ToString().ToLower() + ", Message: " + this.msg);
     }
 
-    public string format () {
+    public virtual string format () {
       string returnMsg = "It's " + this.player.next().ToString() + "'s turn.";
 
       switch (this.msg) {

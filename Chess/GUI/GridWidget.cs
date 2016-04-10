@@ -6,17 +6,17 @@ namespace Chess
   public partial class GridWidget : Table
   {
     //public delegate bool Cb(coord start, coord end);
-    private Board board;
+    private Game game;
     private Cb callback;
     private coord clickedPosition;
     private bool clicked;
     private coord tileSize;
 
-    public GridWidget (Board board, Cb callback, int scale) : base ((uint)board.getSize ().x, (uint)board.getSize ().y, true)
+    public GridWidget (Game game, Cb callback, int scale) : base ((uint)game.getSize().x, (uint)game.getSize().y, true)
     {
       this.callback = callback;
       this.clicked = false;
-      this.board = board;
+      this.game = game;
       this.tileSize = new coord (10 * scale, 10 * scale);
     }
 
@@ -29,11 +29,11 @@ namespace Chess
     {
       //alternating background color for the grid
       string tileBackground = "white";
-      for (int x = 0; x < this.board.getSize ().x; x++) {
+      for (int x = 0; x < this.game.getSize().x; x++) {
         tileBackground = (tileBackground == "white") ? "gray" : "white";
-        for (int y = 0; y < this.board.getSize ().y; y++) {
-          string type = this.board.getFieldFigureName (new coord (x, y));
-          string playerColor = this.board.getFieldFigureColor (new coord (x, y));
+        for (int y = 0; y < this.game.getSize().y; y++) {
+          string type = this.game.getFieldFigureName (new coord (x, y));
+          string playerColor = this.game.getFieldFigureColor (new coord (x, y));
           tileBackground = (tileBackground == "white") ? "gray" : "white";
 
           type = (type == "Empty") ? "" : type;

@@ -5,8 +5,7 @@ namespace Chess
 {
   public class Board
   {
-
-    //game start layout of the board
+    //starting layout for the game
     //lower case is black
     //X or any char differnt than rnbqkp is considered empty
     const string layout = "RNBKQBNR\n" +
@@ -15,36 +14,39 @@ namespace Chess
                           "XXXXXXXX\n" +
                           "XXXXXXXX\n" +
                           "XXXXXXXX\n" +
-                          "pppppppp\n" +
+                          "ppppppPp\n" +
                           "rnbkqbnr";
+
+    //chooseable figures for the pawn
     const string chooseLayout = "RNBQ";
-    public Figure[,] fields { get; set; }
 
-    public coord size { get; set; }
+    private Figure[,] fields;
+    public List<Figure> removedFigures { get; }
+    public Figure[] chooseableFigures { get; }
 
-    public List<Figure> removedFigures { get; set; }
+    public coord size { get; }
 
     public Board ()
     {
       removedFigures = new List<Figure> ();
-      int noLine = 1;  // is 1 because the last line dosen't have a \n
+      int lineNumber = 1;  // is 1 because the last line dosen't have a \n
       int lineLength = 0;
       for (int i = 0; i < layout.Length; i++) {
         if (layout [i] == '\n') {
-          noLine++;
+          lineNumber++;
         } else
           lineLength++;
       }
-      lineLength /= noLine;
+      lineLength /= lineNumber;
 
       //create array with the right size
-      this.fields = new Figure[lineLength, noLine];
+      this.fields = new Figure[lineLength, lineNumber];
       //save size
-      this.size = new coord (lineLength, noLine);
+      this.size = new coord (lineLength, lineNumber);
 
       //fill up the array with the right figures
       int c = 0;
-      for (int y = 0; y < noLine; y++) {
+      for (int y = 0; y < lineNumber; y++) {
         for (int x = 0; x < lineLength; x++) {
           if (layout [c] == '\n')
             c++;
@@ -52,11 +54,11 @@ namespace Chess
           c++;
         }
       }
-      //aloc the array for the choosaebleFigures
+      this.chooseableFigures = createChooseableFigures ();
     }
 
-    //create the choose array
-    public Figure[] getChooseableFigure () {
+    //create array of the chooseable figures without any color
+    public Figure[] createChooseableFigures () {
       Figure[] chooseableFigures = new Figure[chooseLayout.Length];
       for  (int i = 0; i < chooseLayout.Length; i++) {
         chooseableFigures[i] = figureLookup (chooseLayout [i]);
@@ -65,17 +67,11 @@ namespace Chess
       return chooseableFigures;
     }
 
-    public Message switchFigures (string figure, coord position)
+    public Message switchFigures (Figure figure, coord position)
     {
       Player player = new Player (getFieldFigureColor (position));
       Message result = new Message (false, "", "", player);
-      if (figure.ToLower() == "knight") {
-        figure = "night";
-      }
-      if (figure != "") {
-        this.fields [position.x, position.y] = figureLookup (figure [0]);
-        this.fields [position.x, position.y].color = player.ToString ();
-      }
+      this.fields [position.x, position.y] = figure;
       if (isCheck (player.next())) {
         result.msg = "check";
         if (isCheckMate (player.next(), new coord (0, 0))) {
@@ -118,6 +114,10 @@ namespace Chess
         break;
       }
       return result;
+    }
+
+    public Message Move (Player player, coord start) {
+          return new Message (this.getFieldFigureName (start) == "Empty" || this.getFieldFigureColor (start) != player.ToString(), "firstClick", "", player);
     }
 
     public Message Move (Player player, coord start, coord end)
@@ -315,7 +315,7 @@ namespace Chess
 
     public string getFieldFigureName (coord c)
     {
-      return getField (c).GetType ().Name;
+      return getField (c).name ();
     }
 
     public string getFieldFigureName (int x, int y)
@@ -329,9 +329,6 @@ namespace Chess
 
     public Figure getField(coord c) {
       return this.fields [c.x, c.y];
-    }
-    public coord getSize() {
-      return this.size;
     }
   }
 }

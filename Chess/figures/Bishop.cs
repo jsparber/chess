@@ -6,7 +6,6 @@ namespace Chess
   {
     public Bishop (string color) : base (color)
     {
-      this.rule = new coord (1, 1);
     }
 
     public override bool move (Board board, coord start, coord end)
