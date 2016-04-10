@@ -8,13 +8,22 @@ namespace Chess
     //starting layout for the game
     //lower case is black
     //X or any char differnt than rnbqkp is considered empty
-    const string layout = "RNBKQBNR\n" +
+    /*const string layout = "RNBKQBNR\n" +
                           "PPPPPPPP\n" +
                           "XXXXXXXX\n" +
                           "XXXXXXXX\n" +
                           "XXXXXXXX\n" +
                           "XXXXXXXX\n" +
-                          "ppppppPp\n" +
+                          "pppppppp\n" +
+                          "rnbkqbnr";
+*/
+        const string layout = "RNBKQBNR\n" +
+                          "PPPPPPPP\n" +
+                          "XXXXXXXX\n" +
+                          "XXXXXXXX\n" +
+                          "XXXXXXXX\n" +
+                          "XXXXXXXX\n" +
+                          "ppppQppp\n" +
                           "rnbkqbnr";
 
     //chooseable figures for the pawn
@@ -246,6 +255,7 @@ namespace Chess
     }
 
     //special moves castling
+    //bug removes figure also when the casling is not legid
     private bool doCastling (Player player, coord start, coord end)
     {
       if (this.getFieldFigureName (start) == "King" && this.fields [start.x, start.y].color == player.ToString() && this.fields [start.x, start.y].hasMoved == false) {
