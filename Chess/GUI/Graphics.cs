@@ -65,9 +65,6 @@ namespace Chess
       this.Name = "Chess.MainWindow";
       this.Title = global::Mono.Unix.Catalog.GetString ("Chess");
       this.WindowPosition = ((global::Gtk.WindowPosition)(3));
-      if ((this.Child != null)) {
-        this.Child.ShowAll ();
-      }
       this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
     }
 
