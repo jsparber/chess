@@ -136,6 +136,7 @@ namespace Chess
     public Message Move (Player player, coord start, coord end)
     {
       Message result = new Message (false, "", "", player);
+
       if (doCastling (player, start, end)) {
         return result;
       } else if (doEnPassant (player, start, end)) { 
@@ -175,6 +176,7 @@ namespace Chess
           result.action = "chooser";
         }
         this.fields [end.x, end.y].hasMoved = true;
+        isDraw (player.next (), new coord (0, 0));
         return result;
       } 
       result.error = true;
@@ -193,6 +195,10 @@ namespace Chess
       return this.fields [start.x, start.y].move (this, start, end);
     }
 
+    private bool isCheck (Player player)
+    {
+      return isCheck (player, new coord (), new coord ()); 
+    }
     //check if the king will be in check after this move and don't allow it if it is
     private bool isCheck (Player player, coord start, coord end)
     {
@@ -229,11 +235,6 @@ namespace Chess
       return res;
     }
 
-    private bool isCheck (Player player)
-    {
-      return isCheck (player, new coord (), new coord ()); 
-    }
-
     private bool isCheckMate (Player player, coord start)
     {
       bool res = true;
@@ -256,6 +257,28 @@ namespace Chess
         }
       }
       return res;
+    }
+
+    private bool isDraw (Player player, coord start)
+    {
+      coord end = new coord ();
+      if (this.getFieldFigureColor (start) == player.ToString ()) {
+        for (end.x = 0; end.x < this.size.x; end.x++) {
+          for (end.y = 0; end.y < this.size.y; end.y++) {
+            //move eache figure to each field
+            if ((doEnPassant (player, start, end, true)) || (checkMove (player, start, end) && !isCheck (player, start, end))) {
+              Console.WriteLine ("Found possible move");
+              return false;
+            } 
+          }
+        }
+      }
+      if (start.x < this.size.x - 1) {
+        return isDraw(player, new coord(start.x + 1, start.y));
+      } else if (start.y < this.size.y - 1) {
+        return isDraw(player, new coord(0, start.y + 1));
+      }
+      return true;
     }
 
     //special moves castling
@@ -309,7 +332,12 @@ namespace Chess
       return false;
     }
 
+
     private bool doEnPassant (Player player, coord start, coord end)
+    {
+      return doEnPassant (player, start, end, false);
+    }
+    private bool doEnPassant (Player player, coord start, coord end, bool tryOnly)
     {
       int direction;
       if (player.ToString () == "white") {
@@ -325,10 +353,12 @@ namespace Chess
           ((Pawn)this.fields [end.x, start.y]).justMoved &&
           (this.getFieldFigureName (end.x, end.y) == "Empty")) {
         //do move;
-        this.removedFigures.Add (this.fields [end.x, end.y - direction]);
-        this.fields [end.x, end.y - direction] = new Empty ();
-        this.fields [end.x, end.y] = this.fields [start.x, start.y];
-        this.fields [start.x, start.y] = new Empty ();
+        if (tryOnly) {
+          this.removedFigures.Add (this.fields [end.x, end.y - direction]);
+          this.fields [end.x, end.y - direction] = new Empty ();
+          this.fields [end.x, end.y] = this.fields [start.x, start.y];
+          this.fields [start.x, start.y] = new Empty ();
+        }
         return true;
       }
 
