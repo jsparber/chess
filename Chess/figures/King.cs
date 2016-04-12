@@ -20,7 +20,6 @@ namespace Chess
             return true;                                                        /* this method return a true value */
         }
       }
-
       return false;                                                             /* If the value of x and y are not corresponding to the rule the movement isn't allowed  */                                                 
     }
   }

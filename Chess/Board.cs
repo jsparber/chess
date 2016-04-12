@@ -8,7 +8,7 @@ namespace Chess
     //starting layout for the game
     //lower case is black
     //X or any char differnt than rnbqkp is considered empty
-    /*const string layout = "RNBKQBNR\n" +
+    const string layout = "RNBKQBNR\n" +
                           "PPPPPPPP\n" +
                           "XXXXXXXX\n" +
                           "XXXXXXXX\n" +
@@ -16,21 +16,23 @@ namespace Chess
                           "XXXXXXXX\n" +
                           "pppppppp\n" +
                           "rnbkqbnr";
-*/
-        const string layout = "RNBKQBNR\n" +
+    /*const string layout = "RNBKQBNR\n" +
                           "PPPPPPPP\n" +
                           "XXXXXXXX\n" +
                           "XXXXXXXX\n" +
                           "XXXXXXXX\n" +
                           "XXXXXXXX\n" +
                           "ppppQppp\n" +
-                          "rnbkqbnr";
+                          "rnbkXXXr";
+*/
 
     //chooseable figures for the pawn
     const string chooseLayout = "RNBQ";
 
     private Figure[,] fields;
+
     public List<Figure> removedFigures { get; }
+
     public Figure[] chooseableFigures { get; }
 
     public coord size { get; }
@@ -67,12 +69,13 @@ namespace Chess
     }
 
     //create array of the chooseable figures without any color
-    public Figure[] createChooseableFigures () {
+    public Figure[] createChooseableFigures ()
+    {
       Figure[] chooseableFigures = new Figure[chooseLayout.Length];
-      for  (int i = 0; i < chooseLayout.Length; i++) {
-        chooseableFigures[i] = figureLookup (chooseLayout [i]);
+      for (int i = 0; i < chooseLayout.Length; i++) {
+        chooseableFigures [i] = figureLookup (chooseLayout [i]);
         chooseableFigures [i].color = "";
-        }
+      }
       return chooseableFigures;
     }
 
@@ -81,9 +84,9 @@ namespace Chess
       Player player = new Player (getFieldFigureColor (position));
       Message result = new Message (false, "", "", player);
       this.fields [position.x, position.y] = figure;
-      if (isCheck (player.next())) {
+      if (isCheck (player.next ())) {
         result.msg = "check";
-        if (isCheckMate (player.next(), new coord (0, 0))) {
+        if (isCheckMate (player.next (), new coord (0, 0))) {
           result.msg = "checkmate";
         }
       }
@@ -125,13 +128,14 @@ namespace Chess
       return result;
     }
 
-    public Message Move (Player player, coord start) {
-          return new Message (this.getFieldFigureName (start) == "Empty" || this.getFieldFigureColor (start) != player.ToString(), "firstClick", "", player);
+    public Message Move (Player player, coord start)
+    {
+      return new Message (this.getFieldFigureName (start) == "Empty" || this.getFieldFigureColor (start) != player.ToString (), "firstClick", "", player);
     }
 
     public Message Move (Player player, coord start, coord end)
     {
-        Message result = new Message (false, "", "", player);
+      Message result = new Message (false, "", "", player);
       if (doCastling (player, start, end)) {
         return result;
       } else if (doEnPassant (player, start, end)) { 
@@ -144,9 +148,9 @@ namespace Chess
         this.fields [start.x, start.y] = new Empty ();
 
         //check if with this move the other player will be in check or even checkmate
-        if (isCheck (player.next())) {
+        if (isCheck (player.next ())) {
           result.msg = "check";
-          if (isCheckMate (player.next(), new coord (0, 0))) {
+          if (isCheckMate (player.next (), new coord (0, 0))) {
             result.msg = "checkmate";
           }
         }
@@ -157,7 +161,7 @@ namespace Chess
         //remove all justMoved
         for (int x = 0; x < this.size.x; x++) {
           for (int y = 0; y < this.size.y; y++) {
-            if (this.fields [x, y].color == player.ToString() && getFieldFigureName (new coord (x, y)) == "Pawn") {
+            if (this.fields [x, y].color == player.ToString () && getFieldFigureName (new coord (x, y)) == "Pawn") {
               ((Pawn)this.fields [x, y]).justMoved = false;
             }
           }
@@ -182,8 +186,8 @@ namespace Chess
     private bool checkMove (Player player, coord start, coord end)
     {
       if ((this.fields [start.x, start.y].GetType ().Name == "Empty") ||
-        (this.fields [start.x, start.y].color != player.ToString()) ||
-        (this.fields [end.x, end.y].color == player.ToString()))
+          (this.fields [start.x, start.y].color != player.ToString ()) ||
+          (this.fields [end.x, end.y].color == player.ToString ()))
         return false; 
 
       return this.fields [start.x, start.y].move (this, start, end);
@@ -203,7 +207,7 @@ namespace Chess
       }
       for (int x = 0; x < this.size.x; x++) {
         for (int y = 0; y < this.size.y; y++) {
-          if (this.fields [x, y].color == player.ToString() && getFieldFigureName (new coord (x, y)) == "King") {
+          if (this.fields [x, y].color == player.ToString () && getFieldFigureName (new coord (x, y)) == "King") {
             king = new coord (x, y);
             noKing = false;
           }
@@ -213,7 +217,7 @@ namespace Chess
         for (int x = 0; x < this.size.x && !res; x++) {
           for (int y = 0; y < this.size.y && !res; y++) {
             //if a move is posiblie means the king is checked
-            if (checkMove (player.next(), new coord (x, y), king))
+            if (checkMove (player.next (), new coord (x, y), king))
               res = true;
           }
         }
@@ -255,42 +259,50 @@ namespace Chess
     }
 
     //special moves castling
-    //bug removes figure also when the casling is not legid
     private bool doCastling (Player player, coord start, coord end)
     {
-      if (this.getFieldFigureName (start) == "King" && this.fields [start.x, start.y].color == player.ToString() && this.fields [start.x, start.y].hasMoved == false) {
-        if (start.x == end.x + 2 && start.x > end.x && !Move (player, start, new coord (start.x - 1, start.y)).error) {
-          if (!Move (player, new coord (start.x - 1, start.y), end).error) {
-            Figure tmpPosition = this.fields [end.x, end.y];
+      //castling is only possible if the figure on the start position is a king witch hasn' t moved
+      if (this.getFieldFigureName (start) == "King" && this.fields [start.x, start.y].color == player.ToString () && this.fields [start.x, start.y].hasMoved == false) {
+        //left side castling
+        if (start.x + 2 == end.x && this.getFieldFigureName (new coord (start.x + 1, start.y)) == "Empty" && !Move (player, start, new coord (start.x + 1, start.y)).error) {
+          //move the king a secound time
+          if (!Move (player, new coord (start.x + 1, start.y), new coord (start.x + 2, start.y)).error) {
+            //save kings position to allow the rock to move
+            Figure tmpKingPosition = this.fields [end.x, end.y];
             this.fields [end.x, end.y] = new Empty ();
-            if (!Move (player, new coord (0, start.y), new coord (2, start.y)).error) {
-              this.fields [end.x, end.y] = tmpPosition;
-              return true;
-            } else {
-              tmpPosition.hasMoved = false;
-              this.fields [start.x, start.y] = tmpPosition;
-            }
-          } else {
-            this.fields [start.x, start.y] = this.fields [start.x - 1, start.y];
-            this.fields [start.x, start.y].hasMoved = false;
-            this.fields [start.x - 1, start.y] = new Empty ();
-          }
-
-        } else if (start.x == end.x - 2 && start.x < end.x && !Move (player, start, new coord (start.x + 1, start.y)).error) {
-          if (!Move (player, new coord (start.x + 1, start.y), end).error) {
-            Figure tmpPosition = this.fields [end.x, end.y];
-            this.fields [end.x, end.y] = new Empty ();
+            //move rock
             if (!Move (player, new coord (7, start.y), new coord (4, start.y)).error) {
-              this.fields [end.x, end.y] = tmpPosition;
+              this.fields [end.x, end.y] = tmpKingPosition;
               return true;
             } else {
-              tmpPosition.hasMoved = false;
-              this.fields [start.x, start.y] = tmpPosition;
+              tmpKingPosition.hasMoved = false;
+              this.fields [start.x, start.y] = tmpKingPosition;
             }
           } else {
             this.fields [start.x, start.y] = this.fields [start.x + 1, start.y];
             this.fields [start.x, start.y].hasMoved = false;
             this.fields [start.x + 1, start.y] = new Empty ();
+          }
+        }
+        //right side castling
+        else if (start.x - 2 == end.x && this.getFieldFigureName (new coord (start.x - 1, start.y)) == "Empty" && !Move (player, start, new coord (start.x - 1, start.y)).error) {
+          //move the king a secound time
+          if (!Move (player, new coord (start.x - 1, start.y), new coord (start.x - 2, start.y)).error) {
+            //save kings position to allow the rock to move
+            Figure tmpKingPosition = this.fields [end.x, end.y];
+            this.fields [end.x, end.y] = new Empty ();
+            //move rock
+            if (!Move (player, new coord (0, start.y), new coord (2, start.y)).error) {
+              this.fields [end.x, end.y] = tmpKingPosition;
+              return true;
+            } else {
+              tmpKingPosition.hasMoved = false;
+              this.fields [start.x, start.y] = tmpKingPosition;
+            }
+          } else {
+            this.fields [start.x, start.y] = this.fields [start.x - 1, start.y];
+            this.fields [start.x, start.y].hasMoved = false;
+            this.fields [start.x - 1, start.y] = new Empty ();
           }
         }
       }
@@ -300,16 +312,16 @@ namespace Chess
     private bool doEnPassant (Player player, coord start, coord end)
     {
       int direction;
-      if (player.ToString() == "white") {
+      if (player.ToString () == "white") {
         direction = 1;
       } else {
         direction = -1;
       }
       if (this.getFieldFigureName (start) == "Pawn" &&
-        this.fields [start.x, start.y].color == player.ToString() &&
+          this.fields [start.x, start.y].color == player.ToString () &&
           (start.x + 1 == end.x || start.x - 1 == end.x) &&
           start.y + direction == end.y &&
-          this.getFieldFigureName(end.x, start.y) == "Pawn" &&
+          this.getFieldFigureName (end.x, start.y) == "Pawn" &&
           ((Pawn)this.fields [end.x, start.y]).justMoved &&
           (this.getFieldFigureName (end.x, end.y) == "Empty")) {
         //do move;
@@ -333,11 +345,13 @@ namespace Chess
       return getFieldFigureName (new coord (x, y));
     }
 
-    public string getFieldFigureColor(coord c) {
-      return getField(c).color;
+    public string getFieldFigureColor (coord c)
+    {
+      return getField (c).color;
     }
 
-    public Figure getField(coord c) {
+    public Figure getField (coord c)
+    {
       return this.fields [c.x, c.y];
     }
   }
