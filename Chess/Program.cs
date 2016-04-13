@@ -8,10 +8,11 @@ namespace Chess
     public static void Main (string[] args)
     {
       Application.Init ();
-      Game g = new Game ();      /* Creates a new game */     
-      new Graphics (g);          /* Creates the graphic interface for the game (g) [ Graphics gui = new Graphics (g); ]*/
+      //Create game
+      Game g = new Game ();         
+       //Create the graphic interface for the game
+      new Graphics (g);         
       Application.Run ();
-     
     }
   }
 }
