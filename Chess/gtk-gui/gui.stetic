@@ -7,11 +7,4 @@
   <import>
     <widget-library name="../bin/Debug/Chess.exe" internal="true" />
   </import>
-  <icon-factory>
-    <icon-set id="chess">
-      <source>
-        <property name="Image">file:./img/icon.png</property>
-      </source>
-    </icon-set>
-  </icon-factory>
 </stetic-interface>

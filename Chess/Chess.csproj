@@ -85,9 +85,6 @@
     <Folder Include="Core\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="img\icon.png">
-      <DeployService-UseProjectRelativePath>True</DeployService-UseProjectRelativePath>
-    </Content>
     <Content Include="img\circle.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -136,5 +133,10 @@
     <Content Include="img\cburnett\wbK.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\icon.png">
+      <DeployService-UseProjectRelativePath>True</DeployService-UseProjectRelativePath>
+    </None>
   </ItemGroup>
 </Project>
