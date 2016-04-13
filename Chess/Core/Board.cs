@@ -242,10 +242,8 @@ namespace Chess
         for (int y = 0; y < this.size.y && res; y++) {
           coord end = new coord (x, y);
           if (checkMove (player, start, end)) {
-            //if is still check it return false;
             res = isCheck (player, start, end);
-            if (!res)
-              Console.WriteLine ("Found soultion");
+            //if res == false means that there is a possible move
           } 
         }
       }
@@ -267,7 +265,7 @@ namespace Chess
           for (end.y = 0; end.y < this.size.y; end.y++) {
             //move eache figure to each field
             if ((doEnPassant (player, start, end, true)) || (checkMove (player, start, end) && !isCheck (player, start, end))) {
-              Console.WriteLine ("Found possible move");
+              //Found possible move
               return false;
             } 
           }
