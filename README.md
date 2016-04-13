@@ -16,3 +16,9 @@ Install from http://ftp.gnome.org/pub/GNOME/binaries/win32/
 - [libcroco] (http://ftp.gnome.org/pub/GNOME/binaries/win32/libcroco/0.6/libcroco_0.6.2-1_win32.zip)
 - [libxml2] (http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/libxml2_2.9.0-1_win32.zip)
 - [libgsf] (http://ftp.gnome.org/pub/GNOME/binaries/win32/libgsf/1.14/libgsf_1.14.17-1_win32.zip)
+
+Once you've done that, you'll need to execute the following commands:
+```
+cd ?:\???\my-gtk+-installation\bin
+gdk-pixbuf-query-loaders.exe > ..\etc\gtk-2.0\gdk-pixbuf.loaders
+```
