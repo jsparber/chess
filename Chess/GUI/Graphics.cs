@@ -51,7 +51,6 @@ namespace Chess
    
     }
 
-
     protected void OnDeleteEvent (object sender, DeleteEventArgs a)
     {
       Application.Quit ();
@@ -63,7 +62,7 @@ namespace Chess
       global::Stetic.Gui.Initialize (this);
       // Widget Chess.MainWindow
       this.Name = "Chess.MainWindow";
-      this.Title = global::Mono.Unix.Catalog.GetString ("Chess");
+      this.Title = "Chess";
       this.WindowPosition = ((global::Gtk.WindowPosition)(3));
       this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
     }

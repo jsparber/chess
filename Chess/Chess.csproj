@@ -31,7 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="Mono.Posix" />
     <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
@@ -58,7 +57,6 @@
     <Compile Include="GUI\Graphics.cs" />
     <Compile Include="GUI\GridWidget.cs" />
     <Compile Include="GUI\SidebarWidget.cs" />
-    <Compile Include="GUI\TileWidget.cs" />
     <Compile Include="GUI\Popup.cs" />
     <Compile Include="Core\Board.cs" />
     <Compile Include="Core\coord.cs" />
@@ -66,6 +64,7 @@
     <Compile Include="Core\Message.cs" />
     <Compile Include="Core\Payload.cs" />
     <Compile Include="Core\Player.cs" />
+    <Compile Include="GUI\TileWidget.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -133,10 +132,5 @@
     <Content Include="img\cburnett\wbK.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\icon.png">
-      <DeployService-UseProjectRelativePath>True</DeployService-UseProjectRelativePath>
-    </None>
   </ItemGroup>
 </Project>
