@@ -85,21 +85,56 @@
     <Folder Include="Core\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\circle.svg" />
-    <None Include="img\cburnett\bB.svg" />
-    <None Include="img\cburnett\bK-full.svg" />
-    <None Include="img\cburnett\bK.svg" />
-    <None Include="img\cburnett\bN.svg" />
-    <None Include="img\cburnett\bP.svg" />
-    <None Include="img\cburnett\bQ.svg" />
-    <None Include="img\cburnett\bR.svg" />
-    <None Include="img\cburnett\wB.svg" />
-    <None Include="img\cburnett\wK-full.svg" />
-    <None Include="img\cburnett\wK.svg" />
-    <None Include="img\cburnett\wN.svg" />
-    <None Include="img\cburnett\wP.svg" />
-    <None Include="img\cburnett\wQ.svg" />
-    <None Include="img\cburnett\wR.svg" />
-    <None Include="img\cburnett\wbK.svg" />
+    <Content Include="img\icon.png">
+      <DeployService-UseProjectRelativePath>True</DeployService-UseProjectRelativePath>
+    </Content>
+    <Content Include="img\circle.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\cburnett\bB.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\cburnett\bK-full.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\cburnett\bK.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\cburnett\bN.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\cburnett\bP.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\cburnett\bQ.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\cburnett\bR.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\cburnett\wB.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\cburnett\wK-full.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\cburnett\wK.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\cburnett\wN.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\cburnett\wP.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\cburnett\wQ.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\cburnett\wR.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\cburnett\wbK.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>
