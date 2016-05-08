@@ -2,12 +2,16 @@ using System;
 
 namespace Chess
 {
+  // Class for the rock figure
   public class Rock : Figure
   {
+
+    // Constructor of the rock figure
     public Rock (string color) : base (color)
     {
     }
-
+     
+    // Method for the movement of rock
     public override bool move (Board board, coord start, coord end)
     {
       //  int x = this.rule.x;
@@ -45,9 +49,6 @@ namespace Chess
         return true;
       }  
       return false;
-    }
-  
-      
+    }      
   }
-
 }

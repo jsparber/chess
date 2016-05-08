@@ -3,11 +3,12 @@ using System.Collections.Generic;
 
 namespace Chess
 {
-  public class Board
+  // Class for the board
+    public class Board
   {
     //starting layout for the game
-    //lower case is black
-    //X or any char differnt than rnbqkp is considered empty
+    //lower case are black figures,upper case are white figures
+    //X or any char different than rnbqkp is considered empty
     const string layout = "RNBKQBNR\n" +
                           "PPPPPPPP\n" +
                           "XXXXXXXX\n" +
@@ -26,7 +27,7 @@ namespace Chess
                           "rnbkXXXr";
 */
 
-    //chooseable figures for the pawn
+    //chooseable figures for the pawn promotion
     const string chooseLayout = "RNBQ";
 
     private Figure[,] fields;
@@ -279,7 +280,7 @@ namespace Chess
       return true;
     }
 
-    //special moves castling
+    //special move: castling
     private bool doCastling (Player player, coord start, coord end)
     {
       //castling is only possible if the figure on the start position is a king witch hasn' t moved
