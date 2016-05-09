@@ -350,8 +350,8 @@ namespace Chess
           this.getFieldFigureName (end.x, start.y) == "Pawn" &&
           ((Pawn)this.fields [end.x, start.y]).justMoved &&
           (this.getFieldFigureName (end.x, end.y) == "Empty")) {
-        //do move;
-        if (tryOnly) {
+        if (!tryOnly) {
+          //do acctual move
           this.removedFigures.Add (this.fields [end.x, end.y - direction]);
           this.fields [end.x, end.y - direction] = new Empty ();
           this.fields [end.x, end.y] = this.fields [start.x, start.y];
@@ -359,7 +359,6 @@ namespace Chess
         }
         return true;
       }
-
       return false;
     }
 
