@@ -2,17 +2,20 @@ using System;
 
 namespace Chess
 {
+
   /* Class for the queen figure */
   public class Queen : Figure
   {
+
     /* Constructor of the object queen */
     public Queen (string color) : base (color)
     {
     }
 
+    /* Method for the movement of the queen */
     public override bool move (Board board, coord start, coord end)
     {
-      //bishop case
+      // Diagonal movement
       if (Math.Abs (start.x - end.x) == Math.Abs (start.y - end.y)) {
         coord tmp = start;
         while (!tmp.Equals (end)) {
@@ -38,7 +41,7 @@ namespace Chess
         return true;
       }
 
-      //if not bishop case its rock case
+      // Vertical and horizontal movement
       if (start.x == end.x) {
         if (start.y < end.y) {
           for (int i = start.y + 1; i < end.y; i++) {  

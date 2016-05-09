@@ -2,24 +2,24 @@ using System;
 
 namespace Chess
 {
+
+  /* Class for the pawn figure */
   public class Pawn : Figure      
   {
     public bool justMoved { get; set; }
 
-    /* Definition of the variable count used for the check of the movement of the pawn */
-
     /* Constructor of the object pawn*/
     public Pawn (string color) : base (color)
     {
-      justMoved = false;
+      justMoved = false;     /* Definition of the boolean used for the checking if the pawn has moved */
     }
 
-    /* returns true if the movement is permitted,else return false */
+    /* Method for the movement of pawn */
     public override bool move (Board board, coord start, coord end)
     {
-      int direction;
+      int direction;        /* Int value for direction of movement */
 
-      /* If the color is white we have an increment of y,else a decrement */
+      /* If the color is white we have an increment of y(positive direction) else a decrement */
       if (this.color == "white") {
         direction = 1;
       } else {

@@ -2,9 +2,10 @@
 
 namespace Chess
 {
+  /* Generic class for a figure */
   public class Figure
   {
-    public string color { get; set; }   /* String for the color of figures */
+    public string color { get; set; }   /* String for the color offigures */
     public bool hasMoved { get; set; }  /* Flag for checking if the figure has moved */
 
     public Figure (string color)
@@ -30,4 +31,3 @@ namespace Chess
     }
   }
 }
-
