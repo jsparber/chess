@@ -17,38 +17,39 @@ namespace Chess
       //  int x = this.rule.x;
       // int y = this.rule.y;
 
-      if (start.x == end.x) {
-        if (start.y < end.y) {
-          for (int i = start.y + 1; i < end.y; i++) {  
-            if (board.getFieldFigureName (start.x, i) != "Empty") {
-              return false;
+      if (start.x == end.x) {                                          // Check for the vertical movement
+        if (start.y < end.y) {                                         // If the end position is major than the starting position
+          for (int i = start.y + 1; i < end.y; i++) {                  // Check for an object in this trajectory             
+            if (board.getFieldFigureName (start.x, i) != "Empty") {     
+              return false;                                            // If there is one (not empty) movement isn't allowed
             }
           }
-        } else {
-          for (int i = start.y - 1; i > end.y; i--) {  
+        } else {                                                      // If the end position is minor than the starting position
+          for (int i = start.y - 1; i > end.y; i--) {                 // Check for an object in this trajectory 
             if (board.getFieldFigureName (start.x, i) != "Empty") {
-              return false;
+              return false;                                           // If there is one (not empty) movement isn't allowed
             }
           }
         }
-        return true;
-      } else if (start.y == end.y) {
-        if (start.x < end.x) {
-          for (int i = start.x + 1; i < end.x; i++) {  
+        return true;                                                  // If there aren't object movement is permitted
+
+      } else if (start.y == end.y) {                                  // Check for the horizontal movement
+        if (start.x < end.x) {                                        // If the end position is major than the starting position
+          for (int i = start.x + 1; i < end.x; i++) {                 // Check for an object in this trajectory       
             if (board.getFieldFigureName (i, start.y) != "Empty") {
-              return false;
+              return false;                                            // If there is one (not empty) movement isn't allowed
             }
           }
-        } else {
-          for (int i = start.x - 1; i > end.x; i--) {  
+        } else {                                                      // If the end position is minor than the starting position
+          for (int i = start.x - 1; i > end.x; i--) {                 // Check for an object in this trajectory 
             if (board.getFieldFigureName (i, start.y) != "Empty") {
-              return false;
+              return false;                                           // If there is one (not empty) movement isn't allowed
             }
           }
         }
-        return true;
+        return true;                                                  // If there aren't object along trajectory movement is permitted
       }  
-      return false;
+      return false;                                                   // If the movement isn't vertical or horizontal it isn't permitted
     }      
   }
 }
