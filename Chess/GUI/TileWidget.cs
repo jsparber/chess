@@ -6,7 +6,6 @@ using Gtk;
 
 namespace Chess
 {
-  [System.ComponentModel.ToolboxItem (false)]
   public partial class TileWidget : Gtk.EventBox
   {
     public coord position { get; set; }
