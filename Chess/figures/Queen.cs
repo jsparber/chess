@@ -40,8 +40,7 @@ namespace Chess
         }
         return true;                                                             // movement is allowed if there isn't an object along trajectory
       }
-      return false;                                                              // If the movement isn't diagonal it isn't permitted
-
+     
       // Vertical and horizontal movement
       if (start.x == end.x) {                                                    // Check for the vertical movement
         if (start.y < end.y) {                                                   // If the end position is major than the starting position
