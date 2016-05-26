@@ -12,8 +12,6 @@ namespace Chess
 
     public string color { get; set; }
 
-    public string colorBg { get; set; }
-
     public string figure { get; set; }
 
     public TileWidget (string colorBg, string figure, string color, coord size)
@@ -39,7 +37,6 @@ namespace Chess
       }
       this.figure = figure;
       this.color = color;
-      this.colorBg = colorBg;
     }
 
     public Gtk.Image loadSvg (string file, coord size)
@@ -64,4 +61,3 @@ namespace Chess
     }
   }
 }
-
