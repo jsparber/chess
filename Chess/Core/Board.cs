@@ -207,11 +207,13 @@ namespace Chess
       bool noKing = true;
       Figure removedObj = new Figure ();
       bool res = false;
+      //move the figure to the new position if the new positon is not the same as the old
       if (!start.Equals (end)) {
         removedObj = this.fields [end.x, end.y];
         this.fields [end.x, end.y] = this.fields [start.x, start.y];
         this.fields [start.x, start.y] = new Empty ();
       }
+      //search for the king on the board
       for (int x = 0; x < this.size.x; x++) {
         for (int y = 0; y < this.size.y; y++) {
           if (this.fields [x, y].color == player.ToString () && getFieldFigureName (new coord (x, y)) == "King") {
@@ -220,6 +222,7 @@ namespace Chess
           }
         }
       }
+      //if a king was found, try to move all figures to the possion of the king if that is possibile means that the king is in check
       if (!noKing) {
         for (int x = 0; x < this.size.x && !res; x++) {
           for (int y = 0; y < this.size.y && !res; y++) {
@@ -229,6 +232,7 @@ namespace Chess
           }
         }
       }
+      //revert the move so that the state of the board is the same as at the start of this function
       if (!start.Equals (end)) {
         this.fields [start.x, start.y] = this.fields [end.x, end.y]; 
         this.fields [end.x, end.y] = removedObj;
