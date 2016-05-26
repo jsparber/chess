@@ -240,9 +240,11 @@ namespace Chess
       return res;
     }
 
+    //tests if the game is finished menas checkmate
     private bool isCheckMate (Player player, coord start)
     {
       bool res = true;
+      //try all possible moves of for the figure on the start field
       for (int x = 0; x < this.size.x && res; x++) {
         for (int y = 0; y < this.size.y && res; y++) {
           coord end = new coord (x, y);
@@ -252,6 +254,7 @@ namespace Chess
           } 
         }
       }
+      //if there was no possible move in the above loop i will start the function recorsivly to check the next figure
       if (res) {
         if (start.x < this.size.x - 1) {
           res = isCheckMate (player, new coord (start.x + 1, start.y));
