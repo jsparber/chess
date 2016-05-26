@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Chess
 {
   // Class for the board
-    public class Board
+  public class Board
   {
     //starting layout for the game
     //lower case are black figures,upper case are white figures
@@ -48,7 +48,7 @@ namespace Chess
           lineNumber++;
         } else
           lineLength++;
-      }
+      }// End for
       lineLength /= lineNumber;
 
       //create array with the right size
@@ -64,10 +64,10 @@ namespace Chess
             c++;
           this.fields [x, y] = figureLookup (layout [c]);
           c++;
-        }
-      }
+        }// End second for
+      }// End first for
       this.chooseableFigures = createChooseableFigures ();
-    }
+    }// End board class
 
     //create array of the chooseable figures without any color
     public Figure[] createChooseableFigures ()
@@ -92,9 +92,10 @@ namespace Chess
         }
       }
       return result;
-      
+
     }
 
+    // Method that connect lower char with white figures and letters RNBQKP with relative figures
     private Figure figureLookup (char c)
     {
       Figure result;
@@ -189,13 +190,14 @@ namespace Chess
     private bool checkMove (Player player, coord start, coord end)
     {
       if ((this.fields [start.x, start.y].GetType ().Name == "Empty") ||
-          (this.fields [start.x, start.y].color != player.ToString ()) ||
-          (this.fields [end.x, end.y].color == player.ToString ()))
+        (this.fields [start.x, start.y].color != player.ToString ()) ||
+        (this.fields [end.x, end.y].color == player.ToString ()))
         return false; 
 
       return this.fields [start.x, start.y].move (this, start, end);
     }
 
+    // Method that check if the player is under check
     private bool isCheck (Player player)
     {
       return isCheck (player, new coord (), new coord ()); 
@@ -240,11 +242,10 @@ namespace Chess
       return res;
     }
 
-    //tests if the game is finished menas checkmate
+    // Method that check if the player is in checkmate
     private bool isCheckMate (Player player, coord start)
     {
       bool res = true;
-      //try all possible moves of for the figure on the start field
       for (int x = 0; x < this.size.x && res; x++) {
         for (int y = 0; y < this.size.y && res; y++) {
           coord end = new coord (x, y);
@@ -254,7 +255,6 @@ namespace Chess
           } 
         }
       }
-      //if there was no possible move in the above loop i will start the function recorsivly to check the next figure
       if (res) {
         if (start.x < this.size.x - 1) {
           res = isCheckMate (player, new coord (start.x + 1, start.y));
@@ -343,6 +343,8 @@ namespace Chess
     {
       return doEnPassant (player, start, end, false);
     }
+
+    // Method for En Passant
     private bool doEnPassant (Player player, coord start, coord end, bool tryOnly)
     {
       int direction;
@@ -352,12 +354,12 @@ namespace Chess
         direction = -1;
       }
       if (this.getFieldFigureName (start) == "Pawn" &&
-          this.fields [start.x, start.y].color == player.ToString () &&
-          (start.x + 1 == end.x || start.x - 1 == end.x) &&
-          start.y + direction == end.y &&
-          this.getFieldFigureName (end.x, start.y) == "Pawn" &&
-          ((Pawn)this.fields [end.x, start.y]).justMoved &&
-          (this.getFieldFigureName (end.x, end.y) == "Empty")) {
+        this.fields [start.x, start.y].color == player.ToString () &&
+        (start.x + 1 == end.x || start.x - 1 == end.x) &&
+        start.y + direction == end.y &&
+        this.getFieldFigureName (end.x, start.y) == "Pawn" &&
+        ((Pawn)this.fields [end.x, start.y]).justMoved &&
+        (this.getFieldFigureName (end.x, end.y) == "Empty")) {
         if (!tryOnly) {
           //do actual move
           this.removedFigures.Add (this.fields [end.x, end.y - direction]);
@@ -370,21 +372,25 @@ namespace Chess
       return false;
     }
 
+    //Method for getting the name of the figure,have in input a coord object
     public string getFieldFigureName (coord c)
     {
       return getField (c).name ();
     }
 
+    // Method for getting name of figure,having in input two int
     public string getFieldFigureName (int x, int y)
     {
       return getFieldFigureName (new coord (x, y));
     }
 
+    // Method that get the color of the figure
     public string getFieldFigureColor (coord c)
     {
       return getField (c).color;
     }
 
+    // Method that get the fields x and y from a coord object
     public Figure getField (coord c)
     {
       return this.fields [c.x, c.y];
