@@ -8,12 +8,13 @@ namespace Chess
 {
   public partial class TileWidget : Gtk.EventBox
   {
-    public coord position { get; set; }
+    public coord position { get; set; }   // Position 
 
-    public string color { get; set; }
+    public string color { get; set; }     // Color of a tile
 
-    public string figure { get; set; }
+    public string figure { get; set; }    // Instance of a figure
 
+    // constructor
     public TileWidget (string colorBg, string figure, string color, coord size)
     {
       string imgName;
@@ -39,6 +40,7 @@ namespace Chess
       this.color = color;
     }
 
+    // Method that load images of figures
     public Gtk.Image loadSvg (string file, coord size)
     {
       Gdk.Pixbuf display;
@@ -53,6 +55,7 @@ namespace Chess
 
     }
 
+    // Method for loading of the circle that inscribe the figure when it is clicked
     public Gtk.Image loadCircle (coord size)
     {
       string basePath = System.IO.Path.GetDirectoryName (System.Reflection.Assembly.GetExecutingAssembly ().GetName ().CodeBase).Substring (5);

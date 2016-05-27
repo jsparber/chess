@@ -6,14 +6,15 @@ namespace Chess
 {
   public partial class SidebarWidget : Gtk.VBox
   {
-    private List<Figure> removedFigures;
-    private string color;
-    private coord tileSize;
+    private List<Figure> removedFigures;   // List of removed figures
+    private string color;                  // Color of the sidebar's admitted figures
+    private coord tileSize;                // Size of tile
 
+    // Constructor
     public SidebarWidget (List<Figure> removedFigures, string color, int scale)
     {
-      this.removedFigures = removedFigures;
-      this.color = color;
+      this.removedFigures = removedFigures;     
+      this.color = color;                       // Color of the sidebar's admitted figures
 
       updateSidebar ();
 
@@ -21,6 +22,7 @@ namespace Chess
       this.tileSize = new coord (5 * scale, 5 * scale);
     }
 
+    // Method for updating the sidebar
     public void updateSidebar ()
     {
       foreach (Widget child in this.Children) {

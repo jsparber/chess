@@ -6,12 +6,13 @@ namespace Chess
   public partial class GridWidget : Table
   {
     //public delegate bool Cb(coord start, coord end);
-    private Game game;
-    private Cb callback;
-    private coord clickedPosition;
-    private bool clicked;
-    private coord tileSize;
+    private Game game;                // Istance of game class
+    private Cb callback;              // Delegate method 
+    private coord clickedPosition;    // coord of clicked position
+    private bool clicked;             // true if a tile is clicked
+    private coord tileSize;           // Size of a tile
 
+    // Constructor
     public GridWidget (Game game, Cb callback, int scale) : base ((uint)game.getSize ().x, (uint)game.getSize ().y, true)
     {
       this.callback = callback;
@@ -20,11 +21,13 @@ namespace Chess
       this.tileSize = new coord (10 * scale, 10 * scale);
     }
 
+    // Method for adding a figure to game
     private void addFigure (Widget w, coord pos)
     {
       this.Attach (w, (uint)pos.x, (uint)pos.x + 1, (uint)pos.y, (uint)pos.y + 1);
     }
 
+    // Method that draw the board
     private void createBoard ()
     {
       //alternating background color for the grid
@@ -46,6 +49,7 @@ namespace Chess
       this.ShowAll ();
     }
 
+    // Method for updating the grid
     public void updateGrid ()
     {
       //remove all children
@@ -56,6 +60,7 @@ namespace Chess
       createBoard ();
     }
 
+    // Method that describe what happen when a tile is clicked
     private void onTileClicked (object obj, ButtonPressEventArgs args)
     {
       if (((Gdk.EventButton)args.Event).Type == Gdk.EventType.ButtonPress) {
@@ -85,4 +90,3 @@ namespace Chess
     }
   }
 }
-

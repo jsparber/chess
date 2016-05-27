@@ -29,15 +29,16 @@ namespace Chess
 
     //chooseable figures for the pawn promotion
     const string chooseLayout = "RNBQ";
-
+    // Attribute for a tile of the board
     private Figure[,] fields;
 
     public List<Figure> removedFigures { get; }
-
+    // array of chooseable figures
     public Figure[] chooseableFigures { get; }
-
+    // attribute for size of board
     public coord size { get; }
 
+    // Constructor method
     public Board ()
     {
       removedFigures = new List<Figure> ();
@@ -80,6 +81,7 @@ namespace Chess
       return chooseableFigures;
     }
 
+    // Method for switching figures on the board
     public Message switchFigures (Figure figure, coord position)
     {
       Player player = new Player (getFieldFigureColor (position));
@@ -130,11 +132,13 @@ namespace Chess
       return result;
     }
 
+    // Method that return a message
     public Message Move (Player player, coord start)
     {
       return new Message (this.getFieldFigureName (start) == "Empty" || this.getFieldFigureColor (start) != player.ToString (), "firstClick", "", player);
     }
 
+    // Method that return some message to player,for example if it is under check or under checkmate
     public Message Move (Player player, coord start, coord end)
     {
       Message result = new Message (false, "", "", player);
@@ -224,7 +228,7 @@ namespace Chess
           }
         }
       }
-      //if a king was found, try to move all figures to the possion of the king if that is possibile means that the king is in check
+      //if a king was found, try to move all figures to the position of the king,if that is possibile it means that the king is in check
       if (!noKing) {
         for (int x = 0; x < this.size.x && !res; x++) {
           for (int y = 0; y < this.size.y && !res; y++) {
@@ -265,6 +269,7 @@ namespace Chess
       return res;
     }
 
+    // Method that move figures in search of possible move
     private bool isDraw (Player player, coord start)
     {
       coord end = new coord ();

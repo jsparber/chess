@@ -13,6 +13,7 @@ namespace Chess
     private Label status;
     private Game game;
 
+    // constructor that show the graphic interface to users
     public Graphics (Game g) : base (Gtk.WindowType.Toplevel)
     {
       Build ();
@@ -40,6 +41,7 @@ namespace Chess
       this.Show ();
     }
 
+    // method for updating of graphic interface
     public void updateGui (Message msg)
     {
       this.sidebarLeft.updateSidebar ();
@@ -51,12 +53,14 @@ namespace Chess
    
     }
 
+    // Method for delete an event
     protected void OnDeleteEvent (object sender, DeleteEventArgs a)
     {
       Application.Quit ();
       a.RetVal = true;
     }
 
+    // Method that build the graphics of the game
     protected virtual void Build ()
     {
       global::Stetic.Gui.Initialize (this);
@@ -67,6 +71,7 @@ namespace Chess
       this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
     }
 
+    // Method for handling the click
     public bool clickHandler (coord start, coord end)
     {
       Message msg;
@@ -82,6 +87,7 @@ namespace Chess
       return !msg.error;
     }
 
+    // Method for handling the chooser
     public void handleChooser (Figure figure, coord position)
     {
       updateGui (this.game.call (new Payload (false, "switchFigures", figure, position)));
@@ -89,4 +95,3 @@ namespace Chess
 
   }
 }
-

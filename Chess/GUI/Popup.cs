@@ -3,6 +3,7 @@ using Gtk;
 
 namespace Chess
 {
+  // class for the popup when the pawn have to be promoted
   public class Popup: Gtk.Window
   {
     private HBox box;
@@ -10,6 +11,7 @@ namespace Chess
     private Action<Figure, coord> callback;
     private coord tileSize;
 
+    // constructor
     public Popup (Window parent, Figure[] f, Action<Figure, coord> callback, int scale) : base (Gtk.WindowType.Toplevel)
     {
       this.TransientFor = parent;
@@ -24,6 +26,7 @@ namespace Chess
       this.Add (this.box);
     }
 
+    // Method for the opening of popup
     public void open (Player player, coord position)
     {
       close ();
@@ -37,6 +40,7 @@ namespace Chess
       this.ShowAll ();
     }
 
+    // Method for the closing of the popup
     private void close ()
     {
       foreach (Widget child in this.box.Children) {
@@ -45,6 +49,7 @@ namespace Chess
       this.Hide ();
     }
 
+    // Method that describe the reaction of a tile when it is clicked
     private void onTileClicked (object obj, ButtonPressEventArgs args)
     {
       TileWidget tile = (TileWidget)obj;
