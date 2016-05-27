@@ -32,11 +32,11 @@ namespace Chess
     // Attribute for a tile of the board
     private Figure[,] fields;
 
-    public List<Figure> removedFigures { get; }
+    public List<Figure> removedFigures { get; set; }
     // array of chooseable figures
-    public Figure[] chooseableFigures { get; }
+    public Figure[] chooseableFigures { get; set;}
     // attribute for size of board
-    public coord size { get; }
+    public coord size { get; set;}
 
     // Constructor method
     public Board ()
